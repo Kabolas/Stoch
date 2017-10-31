@@ -105,6 +105,8 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies />
+      <EntryPointSymbol>Main</EntryPointSymbol>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -123,9 +125,12 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies />
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>Main</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Reference Include="Accessibility" />
     <Reference Include="EO.Base">
       <HintPath>..\packages\EO.WebBrowser.17.3.13\lib\EO.Base.dll</HintPath>
     </Reference>
@@ -143,12 +148,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="Parsing.cpp" />
+    <ClCompile Include="Station.cpp" />
     <ClCompile Include="Teste.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Station.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Parsing.h" />
     <ClInclude Include="Teste.h" />
   </ItemGroup>
   <ItemGroup>
@@ -157,8 +166,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\..\Desktop\données_statiques_velib_paris.csv" />
     <None Include="Connector.html" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\..\..\Desktop\stations_velib_paris.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
