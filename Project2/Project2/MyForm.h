@@ -67,6 +67,11 @@ namespace Project2 {
 	private: System::Windows::Forms::Label^  label2;
 	private: System::Windows::Forms::Label^  label5;
 	private: System::Windows::Forms::Button^  button10;
+	private: System::Windows::Forms::Label^  label6;
+	private: System::Windows::Forms::Button^  button11;
+	private: System::Windows::Forms::TextBox^  textBox6;
+	private: System::Windows::Forms::Button^  button12;
+	private: System::Windows::Forms::ListBox^  listBox6;
 	protected:
 
 	protected:
@@ -87,6 +92,11 @@ namespace Project2 {
 			this->webBrowser1 = (gcnew EO::WinForm::WebControl());
 			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->button11 = (gcnew System::Windows::Forms::Button());
+			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
+			this->button12 = (gcnew System::Windows::Forms::Button());
+			this->listBox6 = (gcnew System::Windows::Forms::ListBox());
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
@@ -121,13 +131,14 @@ namespace Project2 {
 			// 
 			// webBrowser1
 			// 
+			this->webBrowser1->BackColor = System::Drawing::Color::White;
 			this->webBrowser1->Location = System::Drawing::Point(183, 12);
 			this->webBrowser1->MinimumSize = System::Drawing::Size(20, 20);
 			this->webBrowser1->Name = L"webBrowser1";
 			this->webBrowser1->Size = System::Drawing::Size(492, 367);
 			this->webBrowser1->TabIndex = 1;
 			this->webBrowser1->WebView = gcnew EO::WebBrowser::WebView();
-			this->webBrowser1-> WebView->Url =System::IO::Directory::GetCurrentDirectory()+"/Connector.html";
+			this->webBrowser1->WebView->Url = System::IO::Directory::GetCurrentDirectory() + "/Connector.html";
 			// 
 			// comboBox1
 			// 
@@ -141,6 +152,11 @@ namespace Project2 {
 			// 
 			// groupBox1
 			// 
+			this->groupBox1->Controls->Add(this->label6);
+			this->groupBox1->Controls->Add(this->button11);
+			this->groupBox1->Controls->Add(this->textBox6);
+			this->groupBox1->Controls->Add(this->button12);
+			this->groupBox1->Controls->Add(this->listBox6);
 			this->groupBox1->Controls->Add(this->label5);
 			this->groupBox1->Controls->Add(this->label4);
 			this->groupBox1->Controls->Add(this->label3);
@@ -164,50 +180,93 @@ namespace Project2 {
 			this->groupBox1->Enabled = false;
 			this->groupBox1->Location = System::Drawing::Point(7, 29);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(170, 338);
+			this->groupBox1->Size = System::Drawing::Size(170, 340);
 			this->groupBox1->TabIndex = 3;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"Paramètres déterministes";
 			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(6, 342);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(53, 13);
+			this->label6->TabIndex = 24;
+			this->label6->Text = L"Demande";
+			// 
+			// button11
+			// 
+			this->button11->Location = System::Drawing::Point(131, 403);
+			this->button11->Name = L"button11";
+			this->button11->Size = System::Drawing::Size(33, 23);
+			this->button11->TabIndex = 23;
+			this->button11->Text = L"→";
+			this->button11->UseVisualStyleBackColor = true;
+			// 
+			// textBox6
+			// 
+			this->textBox6->Location = System::Drawing::Point(45, 405);
+			this->textBox6->Name = L"textBox6";
+			this->textBox6->Size = System::Drawing::Size(81, 20);
+			this->textBox6->TabIndex = 22;
+			// 
+			// button12
+			// 
+			this->button12->Enabled = false;
+			this->button12->Location = System::Drawing::Point(6, 403);
+			this->button12->Name = L"button12";
+			this->button12->Size = System::Drawing::Size(33, 23);
+			this->button12->TabIndex = 21;
+			this->button12->Text = L"←";
+			this->button12->UseVisualStyleBackColor = true;
+			// 
+			// listBox6
+			// 
+			this->listBox6->FormattingEnabled = true;
+			this->listBox6->Location = System::Drawing::Point(7, 356);
+			this->listBox6->Name = L"listBox6";
+			this->listBox6->Size = System::Drawing::Size(157, 43);
+			this->listBox6->TabIndex = 20;
+			// 
 			// label5
 			// 
 			this->label5->AutoSize = true;
-			this->label5->Location = System::Drawing::Point(6, 337);
+			this->label5->Location = System::Drawing::Point(6, 255);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(35, 13);
+			this->label5->Size = System::Drawing::Size(92, 13);
 			this->label5->TabIndex = 19;
-			this->label5->Text = L"label5";
+			this->label5->Text = L"Capacité en velos";
 			// 
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(6, 228);
+			this->label4->Location = System::Drawing::Point(6, 173);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(35, 13);
+			this->label4->Size = System::Drawing::Size(164, 13);
 			this->label4->TabIndex = 18;
-			this->label4->Text = L"label4";
+			this->label4->Text = L"Cout lié au manque de place (Wi)";
 			// 
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(6, 119);
+			this->label3->Location = System::Drawing::Point(6, 92);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(35, 13);
+			this->label3->Size = System::Drawing::Size(154, 13);
 			this->label3->TabIndex = 17;
-			this->label3->Text = L"label3";
+			this->label3->Text = L"Cout lié au manque de velo (Vi)";
 			// 
 			// label2
 			// 
 			this->label2->AutoSize = true;
 			this->label2->Location = System::Drawing::Point(6, 11);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(35, 13);
+			this->label2->Size = System::Drawing::Size(103, 13);
 			this->label2->TabIndex = 16;
-			this->label2->Text = L"label2";
+			this->label2->Text = L"Prix d\'acquisition (Ci)";
 			// 
 			// button8
 			// 
-			this->button8->Location = System::Drawing::Point(131, 424);
+			this->button8->Location = System::Drawing::Point(131, 316);
 			this->button8->Name = L"button8";
 			this->button8->Size = System::Drawing::Size(33, 23);
 			this->button8->TabIndex = 15;
@@ -217,7 +276,7 @@ namespace Project2 {
 			// 
 			// button6
 			// 
-			this->button6->Location = System::Drawing::Point(131, 314);
+			this->button6->Location = System::Drawing::Point(131, 233);
 			this->button6->Name = L"button6";
 			this->button6->Size = System::Drawing::Size(33, 23);
 			this->button6->TabIndex = 11;
@@ -227,14 +286,14 @@ namespace Project2 {
 			// 
 			// textBox4
 			// 
-			this->textBox4->Location = System::Drawing::Point(45, 316);
+			this->textBox4->Location = System::Drawing::Point(45, 235);
 			this->textBox4->Name = L"textBox4";
 			this->textBox4->Size = System::Drawing::Size(81, 20);
 			this->textBox4->TabIndex = 10;
 			// 
 			// textBox5
 			// 
-			this->textBox5->Location = System::Drawing::Point(45, 426);
+			this->textBox5->Location = System::Drawing::Point(45, 318);
 			this->textBox5->Name = L"textBox5";
 			this->textBox5->Size = System::Drawing::Size(81, 20);
 			this->textBox5->TabIndex = 14;
@@ -242,7 +301,7 @@ namespace Project2 {
 			// button7
 			// 
 			this->button7->Enabled = false;
-			this->button7->Location = System::Drawing::Point(6, 314);
+			this->button7->Location = System::Drawing::Point(6, 233);
 			this->button7->Name = L"button7";
 			this->button7->Size = System::Drawing::Size(33, 23);
 			this->button7->TabIndex = 9;
@@ -252,15 +311,15 @@ namespace Project2 {
 			// listBox4
 			// 
 			this->listBox4->FormattingEnabled = true;
-			this->listBox4->Location = System::Drawing::Point(7, 241);
+			this->listBox4->Location = System::Drawing::Point(7, 186);
 			this->listBox4->Name = L"listBox4";
-			this->listBox4->Size = System::Drawing::Size(157, 69);
+			this->listBox4->Size = System::Drawing::Size(157, 43);
 			this->listBox4->TabIndex = 8;
 			// 
 			// button9
 			// 
 			this->button9->Enabled = false;
-			this->button9->Location = System::Drawing::Point(6, 424);
+			this->button9->Location = System::Drawing::Point(6, 316);
 			this->button9->Name = L"button9";
 			this->button9->Size = System::Drawing::Size(33, 23);
 			this->button9->TabIndex = 13;
@@ -269,7 +328,7 @@ namespace Project2 {
 			// 
 			// button4
 			// 
-			this->button4->Location = System::Drawing::Point(131, 205);
+			this->button4->Location = System::Drawing::Point(131, 150);
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(33, 23);
 			this->button4->TabIndex = 7;
@@ -280,14 +339,14 @@ namespace Project2 {
 			// listBox5
 			// 
 			this->listBox5->FormattingEnabled = true;
-			this->listBox5->Location = System::Drawing::Point(7, 351);
+			this->listBox5->Location = System::Drawing::Point(7, 269);
 			this->listBox5->Name = L"listBox5";
-			this->listBox5->Size = System::Drawing::Size(157, 69);
+			this->listBox5->Size = System::Drawing::Size(157, 43);
 			this->listBox5->TabIndex = 12;
 			// 
 			// textBox3
 			// 
-			this->textBox3->Location = System::Drawing::Point(45, 207);
+			this->textBox3->Location = System::Drawing::Point(45, 152);
 			this->textBox3->Name = L"textBox3";
 			this->textBox3->Size = System::Drawing::Size(81, 20);
 			this->textBox3->TabIndex = 6;
@@ -295,7 +354,7 @@ namespace Project2 {
 			// button5
 			// 
 			this->button5->Enabled = false;
-			this->button5->Location = System::Drawing::Point(6, 205);
+			this->button5->Location = System::Drawing::Point(6, 150);
 			this->button5->Name = L"button5";
 			this->button5->Size = System::Drawing::Size(33, 23);
 			this->button5->TabIndex = 5;
@@ -304,7 +363,7 @@ namespace Project2 {
 			// 
 			// button3
 			// 
-			this->button3->Location = System::Drawing::Point(131, 95);
+			this->button3->Location = System::Drawing::Point(131, 68);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(33, 23);
 			this->button3->TabIndex = 4;
@@ -314,7 +373,7 @@ namespace Project2 {
 			// 
 			// textBox2
 			// 
-			this->textBox2->Location = System::Drawing::Point(45, 97);
+			this->textBox2->Location = System::Drawing::Point(45, 70);
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->Size = System::Drawing::Size(81, 20);
 			this->textBox2->TabIndex = 3;
@@ -322,7 +381,7 @@ namespace Project2 {
 			// button2
 			// 
 			this->button2->Enabled = false;
-			this->button2->Location = System::Drawing::Point(6, 95);
+			this->button2->Location = System::Drawing::Point(6, 68);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(33, 23);
 			this->button2->TabIndex = 2;
@@ -332,9 +391,9 @@ namespace Project2 {
 			// listBox3
 			// 
 			this->listBox3->FormattingEnabled = true;
-			this->listBox3->Location = System::Drawing::Point(7, 132);
+			this->listBox3->Location = System::Drawing::Point(7, 105);
 			this->listBox3->Name = L"listBox3";
-			this->listBox3->Size = System::Drawing::Size(157, 69);
+			this->listBox3->Size = System::Drawing::Size(157, 43);
 			this->listBox3->TabIndex = 1;
 			// 
 			// listBox2
@@ -342,14 +401,14 @@ namespace Project2 {
 			this->listBox2->FormattingEnabled = true;
 			this->listBox2->Location = System::Drawing::Point(7, 24);
 			this->listBox2->Name = L"listBox2";
-			this->listBox2->Size = System::Drawing::Size(157, 69);
+			this->listBox2->Size = System::Drawing::Size(157, 43);
 			this->listBox2->TabIndex = 0;
 			// 
 			// groupBox2
 			// 
 			this->groupBox2->Controls->Add(this->listBox1);
 			this->groupBox2->Controls->Add(this->comboBox2);
-			this->groupBox2->Location = System::Drawing::Point(7, 366);
+			this->groupBox2->Location = System::Drawing::Point(7, 371);
 			this->groupBox2->Name = L"groupBox2";
 			this->groupBox2->Size = System::Drawing::Size(170, 118);
 			this->groupBox2->TabIndex = 5;
@@ -402,7 +461,7 @@ namespace Project2 {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(13, 484);
+			this->label1->Location = System::Drawing::Point(13, 486);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(97, 13);
 			this->label1->TabIndex = 8;
@@ -448,10 +507,14 @@ namespace Project2 {
 		{
 			this->groupBox2->Visible = this->comboBox1->SelectedItem->Equals("Stochastique");
 			this->groupBox1->Enabled = this->comboBox1->SelectedIndex;
+
+			this->button1->Enabled = !this->comboBox1->SelectedItem->Equals("Mode");
+			this->textBox1->Enabled = !this->comboBox1->SelectedItem->Equals("Mode");
+			this->richTextBox1->Enabled = !this->comboBox1->SelectedItem->Equals("Mode");
 			if ((String^)this->comboBox1->SelectedItem == "Déterministe")
 				this->groupBox1->Size = System::Drawing::Size(170, 455);
 			else
-				this->groupBox1->Size = System::Drawing::Size(170, 338);
+				this->groupBox1->Size = System::Drawing::Size(170, 340);
 		}
 
 		System::Void ButtonClick(System::Object^ sender, System::EventArgs^ e)
