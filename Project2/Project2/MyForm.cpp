@@ -1,6 +1,8 @@
 #include "MyForm.h"
 #include "Parsing.h"
 #include "Station.h"
+#include "ProblemVLS.h"
+#include <random>
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -9,20 +11,16 @@ using namespace System::Windows::Forms;
 [STAThreadAttribute]
 void Main(array<String^>^ args) 
 {
+	std::random_device rd;
+	std::mt19937 gen(rd());
+
 	std::vector<std::string> buf;
 	Parser parse;
-	/*parse.readFile("c:\\Users\\Shankar\\Desktop\\données_statiques_velib_paris.csv",buf);
 	
-	for (std::vector<std::string>::const_iterator i = buf.begin(); i != buf.end(); ++i)
-		std::cout << *i << ' ' << std::endl;*/
-	std::vector<Station> myStations;
-	parse.readTextBike("c:\\Users\\Shankar\\Desktop\\stations_velib_paris.txt",myStations);
+	ProblemVLS problem;
+	problem.printStation(1);
+	//problem.printAllStations();
 	
-	for (std::vector<Station>::iterator i = myStations.begin(); i != myStations.end(); ++i)
-	{
-		Station& s = *i;
-		s.print();
-	}
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	Project2::MyForm form;

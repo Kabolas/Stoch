@@ -40,7 +40,7 @@ void Parser::readTextBike(std::string filePath, std::vector<Station>& stList)
 	bool buf_banking = false, buf_bonus = false, buf_status = false;
 	double buf_lat = 0.0, buf_lng = 0.0;
 	std::time_t buf_last_update = 0;
-
+	int id_count = 0;
 
 	while (std::getline(infile, str, ','))
 	{
@@ -123,8 +123,8 @@ void Parser::readTextBike(std::string filePath, std::vector<Station>& stList)
 			str.erase(std::remove(str.begin(), str.end(), '}'));
 			buf_last_update = std::atoi(str.substr(str.find(":") + 1).c_str());
 			//std::cout << buf_last_update << ' ' << "done \n" << "END" <<std::endl;
-
-			Station st(buf_c_id,buf_contract_name,buf_name,buf_address,buf_lat,buf_lng,buf_banking,buf_bonus,buf_status,buf_bike_stands,buf_available_bike_stands,buf_available_bikes,buf_last_update);
+			++id_count;
+			Station st(id_count,buf_c_id,buf_contract_name,buf_name,buf_address,buf_lat,buf_lng,buf_banking,buf_bonus,buf_status,buf_bike_stands,buf_available_bike_stands,buf_available_bikes,buf_last_update);
 			//st.print();
 			stList.push_back(st);
 		}

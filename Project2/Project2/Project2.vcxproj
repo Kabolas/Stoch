@@ -149,10 +149,14 @@
   <ItemGroup>
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="Parsing.cpp" />
+    <ClCompile Include="ProblemVLS.cpp" />
     <ClCompile Include="Station.cpp" />
     <ClCompile Include="Teste.cpp" />
+    <ClCompile Include="Trajet.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Trajet.h" />
+    <ClInclude Include="ProblemVLS.h" />
     <ClInclude Include="Station.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
