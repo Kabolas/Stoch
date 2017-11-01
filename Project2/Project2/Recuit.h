@@ -3,32 +3,34 @@
 #include <vector>
 #include <random>
 
+namespace Project2 {
 #define TEMPERATURE_INITIALE 1000;
-class Recuit
-{
+	public ref class Recuit
+	{
 
-protected:
-	double tempInitiale;
-	double temp;
-	std::vector<int> bestSolution;
-	double minValue;
-	int nIteration;
-	int nPallier;
+	protected:
+		double tempInitiale;
+		double temp;
+		System::Collections::ArrayList^ bestSolution;
+		double minValue;
+		int nIteration;
+		int nPallier;
 
 
-public:
-	Recuit();
-	Recuit(double tInitiale, int nIter, int nPallier);
-	~Recuit();
+	public:
+		Recuit();
+		Recuit(double tInitiale, int nIter, int nPallier);
+		~Recuit();
 
-	virtual std::vector<int> getVicinity(std::vector<int> solution) = 0;
-	virtual std::vector<int> generateFirstSolution() = 0;
-	virtual double getValue(std::vector<int> solution) = 0;
-	virtual double changeTemp() = 0;
-	void algo();
-	std::vector<int> getBestSolution();
-	double getMinValue();
-	double getRandProba(double min, double max);
+		virtual System::Collections::ArrayList^ getVicinity(System::Collections::ArrayList^ solution) = 0;
+		virtual System::Collections::ArrayList^ generateFirstSolution() = 0;
+		virtual double getValue(System::Collections::ArrayList^ solution) = 0;
+		virtual double changeTemp() = 0;
+		void algo();
+		System::Collections::ArrayList^ getBestSolution();
+		double getMinValue();
+		double getRandProba(double min, double max);
 
-};
+	};
+}
 

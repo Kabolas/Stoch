@@ -150,10 +150,14 @@
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="Parsing.cpp" />
     <ClCompile Include="ProblemVLS.cpp" />
+    <ClCompile Include="Recuit.cpp" />
+    <ClCompile Include="RecuitVLS.cpp" />
     <ClCompile Include="Station.cpp" />
     <ClCompile Include="Trajet.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Recuit.h" />
+    <ClInclude Include="RecuitVLS.h" />
     <ClInclude Include="Trajet.h" />
     <ClInclude Include="ProblemVLS.h" />
     <ClInclude Include="Station.h" />

@@ -1,6 +1,7 @@
 #include "Recuit.h"
 #include "math.h"
 
+using namespace Project2;
 
 Recuit::Recuit() {
 
@@ -21,7 +22,7 @@ Recuit::~Recuit()
 	
 }
 
-std::vector<int> Recuit::getBestSolution() {
+System::Collections::ArrayList^ Recuit::getBestSolution() {
 	return bestSolution;
 }
 
@@ -39,13 +40,13 @@ double Recuit::getRandProba(double min, double max)
 
 void Recuit::algo() {
 
-	std::vector<int> currentSolution = generateFirstSolution();
+	System::Collections::ArrayList^ currentSolution = generateFirstSolution();
 	bestSolution = currentSolution;
 	minValue = getValue(bestSolution);
 	int i = 0;
 	while (i < nIteration) {
 		do {
-			std::vector<int> newSol = getVicinity(currentSolution);
+			System::Collections::ArrayList^ newSol = getVicinity(currentSolution);
 			double newValue = getValue(newSol);
 			double delta = newValue - getValue(currentSolution);
 			if (delta < 0) {
