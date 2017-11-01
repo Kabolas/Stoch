@@ -12,7 +12,7 @@ namespace Project2 {
 	{
 	public:
 		ProblemVLS();
-		void generateDemandes(bool stochastique = false);
+		void generateDemandes(bool stochastique);
 		void printStation(int s_id);
 		void printAllStations();
 	protected:

@@ -2,32 +2,36 @@
 #include "Parsing.h"
 #include <algorithm>
 
-
-ProblemVLS::ProblemVLS() : listeStation(), listeTrajet(), recuitVLS(TEMPERATURE_INITIALE, 10000, 10)
+using namespace Project2;
+void ProblemVLS::generateDemandes(bool stochastique)
 {
-	Parser parse;
-	parse.readTextBike("c:\\Users\\Shankar\\Desktop\\stations_velib_paris.txt", listeStation);
-
-}
-
-void ProblemVLS::generateDemandes(bool stochastique = false)
-{
-	if (!listeStation.empty())
+	if (listeStation->Count > 0)
 	{
-		int taille = listeStation.size();
-		for (std::vector<Station>::iterator i = listeStation.begin(); i != listeStation.end(); ++i)
+		int taille = listeStation->Count;
+		for each(Station^ stat in listeStation)
 		{
-			Station& s = *i;
-			int nb_demand = stochastique ? (int)getRandProba(0.8*s.getAvailableBikeStands(),1.2*s.getAvailableBikeStands()) : s.getAvailableBikeStands();
+			int nb_demand = stochastique ? (int)getRandProba(0.8*stat->getAvailableBikeStands(), 1.2*stat->getAvailableBikeStands()) : stat->getAvailableBikeStands();
 			int id_dest;
 			for (int i = 1; i < nb_demand; ++i)
 			{
 				do
 				{
 					id_dest = getRandProba(1, taille);
-				} while (id_dest == s.getId());
-				Trajet trj(s.getId(), id_dest, 1, s.getAvailableBikes());
-				listeTrajet.push_back(trj);
+				} while (id_dest == stat->getId());
+
+				bool found = false;
+				for each(Trajet^ traj in listeTrajet)
+				{
+					if ((traj->getIdDepart() == stat->getId()) && (traj->getIdDepart() == id_dest))
+					{
+						traj->setDemande(traj->getDemande() + 1);
+						found = true;
+						break;
+					}
+				}
+
+				if (!found)
+					listeTrajet->Add(gcnew Trajet(stat->getId(), id_dest, 1, stat->getAvailableBikes()));
 			}
 		}
 	}
