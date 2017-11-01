@@ -4,23 +4,13 @@
 
 using namespace Project2;
 
-bool Project2::readFile(std::string filePath, Collections::ArrayList^ buffer)
+bool Project2::readFile(String^ filePath, Collections::ArrayList^ buffer)
 {
-	std::ifstream infile(filePath, std::ifstream::in);
-	if(infile.fail())
+
+	for each (String^ str in System::IO::File::ReadAllLines(filePath))
 	{
-		perror(filePath.c_str());
-		return false;
+		buffer->Add(str);
 	}
-	std::string str;
-
-	while (std::getline(infile, str))
-	{
-		buffer->Add(gcnew System::String());
-	}
-
-	infile.close();
-
 	return true;
 }
 

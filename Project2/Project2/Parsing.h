@@ -7,7 +7,7 @@
 using namespace System;
 
 namespace Project2 {
-		bool readFile(std::string filePath, Collections::ArrayList^ buffer);
-		void readTextBike(std::string filePath,Collections::ArrayList^ stList);
+		bool readFile(String^ filePath, Collections::ArrayList^ buffer);
+		void readTextBike(String^ filePath,Collections::ArrayList^ stList);
 
 }
