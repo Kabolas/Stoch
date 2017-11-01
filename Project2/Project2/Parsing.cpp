@@ -16,18 +16,18 @@ void Project2::readTextBike(String^ filePath, Collections::ArrayList^ stList)
 
 	for each(String^ str in System::IO::File::ReadAllLines(filePath))
 	{
-		if(str->Contains("\"number\":"))
-			buf_c_id = int::Parse(str->Replace(",","")->Split(':')[1]);
+		if (str->Contains("\"number\":"))
+			buf_c_id = int::Parse(str->Replace(",", "")->Split(':')[1]);
 		else if (str->Contains("\"name\":"))
 			buf_name = str->Replace(",", "")->Split(':')[1]->Replace("\"", "");
 		else if (str->Contains("\"address\":"))
-			buf_address = str->Replace(",", "")->Split(':')[1]->Replace("\"","");
+			buf_address = str->Replace(",", "")->Split(':')[1]->Replace("\"", "");
 		else if (str->Contains("\"lat\":"))
 			buf_lat = double::Parse(str->Replace(",", "")->Split('"')[1]);
 		else if (str->Contains("\"lng\":"))
 			buf_lng = double::Parse(str->Replace(",", "")->Split('"')[1]);
 		else if (str->Contains("\"banking\":"))
-			buf_banking = str->Replace(",", "")->Split(':')[1]->Contains("true")? true : false;
+			buf_banking = str->Replace(",", "")->Split(':')[1]->Contains("true") ? true : false;
 		else if (str->Contains("\"bonus\":"))
 			buf_bonus = str->Replace(",", "")->Split(':')[1]->Contains("true") == 0 ? true : false;
 		else if (str->Contains("\"status\":"))
@@ -40,9 +40,11 @@ void Project2::readTextBike(String^ filePath, Collections::ArrayList^ stList)
 			buf_available_bike_stands = int::Parse(str->Replace(",", "")->Split(':')[1]);
 		else if (str->Contains("\"available_bikes\":"))
 			buf_available_bikes = int::Parse(str->Replace(",", "")->Split(':')[1]);
-		/*else if (str->Contains("\"last_update\":"))
-			buf_last_update = std::atoi(str->Replace(",", "")->Split(':')[1]);*/
-			stList->Add( gcnew Station (id_count,buf_c_id,buf_contract_name,buf_name,buf_address,buf_lat,buf_lng,buf_banking,buf_bonus,buf_status,buf_bike_stands,buf_available_bike_stands,buf_available_bikes,buf_last_update));
-	
+		else if (str->Contains("\"last_update\":"))
+		{
+			buf_last_update = Convert::ToInt32(str->Replace(",", "")->Split(':')[1]);
+			stList->Add(gcnew Station(id_count, buf_c_id, buf_contract_name, buf_name, buf_address, buf_lat, buf_lng, buf_banking, buf_bonus, buf_status, buf_bike_stands, buf_available_bike_stands, buf_available_bikes, buf_last_update));
+		}
+
 	}
 }
