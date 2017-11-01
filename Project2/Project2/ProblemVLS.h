@@ -10,7 +10,7 @@
 class ProblemVLS
 {
 	public:
-		ProblemVLS();
+		ProblemVLS(bool stocha = false);
 		void generateDemandes(bool stochastique = false);
 		void printStation(int s_id);
 		void printAllStations();

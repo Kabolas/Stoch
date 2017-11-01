@@ -3,11 +3,11 @@
 #include <algorithm>
 
 
-ProblemVLS::ProblemVLS() : listeStation(), listeTrajet(), recuitVLS(TEMPERATURE_INITIALE, 10000, 10)
+ProblemVLS::ProblemVLS(bool stocha = false) : listeStation(), listeTrajet(), recuitVLS(TEMPERATURE_INITIALE, 10000, 10)
 {
 	Parser parse;
 	parse.readTextBike("c:\\Users\\Shankar\\Desktop\\stations_velib_paris.txt", listeStation);
-
+	generateDemandes(stocha);
 }
 
 void ProblemVLS::generateDemandes(bool stochastique = false)
@@ -26,8 +26,19 @@ void ProblemVLS::generateDemandes(bool stochastique = false)
 				{
 					id_dest = getRandProba(1, taille);
 				} while (id_dest == s.getId());
-				Trajet trj(s.getId(), id_dest, 1, s.getAvailableBikes());
-				listeTrajet.push_back(trj);
+
+				auto it = find_if(listeTrajet.begin(), listeTrajet.end(), [&](Trajet const& t) {return (t.getIdDepart() == s.getId()) && (t.getIdArrv() == id_dest);});
+
+				if (it != listeTrajet.end())
+				{
+					it->setDemande(it->getDemande()+1);
+				}
+				else
+				{
+					Trajet trj(s.getId(), id_dest, 1, s.getAvailableBikes());
+					listeTrajet.push_back(trj);
+				}
+
 			}
 		}
 	}
