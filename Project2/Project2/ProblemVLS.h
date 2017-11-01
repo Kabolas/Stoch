@@ -3,22 +3,23 @@
 #include "Trajet.h"
 #include "RecuitVLS.h"
 #include <random>
-#include <vector>
 
 #define TEMPERATURE_INITIALE 1000
 
-class ProblemVLS
-{
+namespace Project2 {
+	using namespace System;
+	public ref class ProblemVLS
+	{
 	public:
-		ProblemVLS(bool stocha = false);
+		ProblemVLS();
 		void generateDemandes(bool stochastique = false);
 		void printStation(int s_id);
 		void printAllStations();
 	protected:
-		std::vector<Station> listeStation;
-		std::vector<Trajet> listeTrajet;
-		RecuitVLS recuitVLS;
+		System::Collections::ArrayList^ listeStation;
+		System::Collections::ArrayList^ listeTrajet;
 		double getRandProba();
 		int getRandProba(int  min, int max);
 
-};
+	};
+}

@@ -1,49 +1,24 @@
 #include "Trajet.h"
-
-Trajet::Trajet(int dep, int arv, int dem) : id_depart(dep), id_arrv(arv), demande(dem), offre(0)
+using namespace Project2;
+Trajet::Trajet(int idepart, int idarr, int demand, int offre)
 {
+	id_arrv = idarr;
+	id_depart = idepart;
+	demande = demand;
+	this->offre = offre;
 }
+int const Trajet::getIdDepart() { return id_depart; }
 
-Trajet::Trajet(int dep, int arv, int dem, int offre) : id_depart(dep), id_arrv(arv), demande(dem), offre(offre)
-{
-}
+int const Trajet::getIdArrv() { return id_arrv; }
 
-int Trajet::getIdDepart() const
-{
-	return id_depart;
-}
+int const Trajet::getDemande() { return demande; }
 
-int Trajet::getIdArrv() const
-{
-	return id_arrv;
-}
+int const Trajet::getOffre() { return offre; }
 
-int Trajet::getDemande() const
-{
-	return demande;
-}
+void Trajet::setIdDepart(int dep) { id_depart = dep; }
 
-int Trajet::getOffre() const
-{
-	return offre;
-}
+void Trajet::setIdArriv(int arrv) { id_arrv = arrv; }
 
-void Trajet::setIdDepart(int dep)
-{
-	id_depart = dep;
-}
+void Trajet::setDemande(int dem) { demande = dem; }
 
-void Trajet::setIdArriv(int arrv)
-{
-	id_arrv = arrv;
-}
-
-void Trajet::setDemande(int dem)
-{
-	demande = dem;
-}
-
-void Trajet::setOffre(int off)
-{
-	offre = off;
-}
+void Trajet::setOffre(int off) { offre = off; }

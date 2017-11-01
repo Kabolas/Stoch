@@ -1,19 +1,20 @@
 #pragma once
 
 
-class Trajet
-{
+namespace Project2 {
+	public value class Trajet
+	{
 	public:
-		Trajet(int dep, int arv, int dem);
-		Trajet(int dep, int arv, int dem, int offre);
-		int getIdDepart() const;
-		int getIdArrv() const;
-		int getDemande() const;
-		int getOffre() const;
+		Trajet(int idepart, int idarr, int demand, int offre);
+		int const getIdDepart();
+		int const getIdArrv();
+		int const getDemande();
+		int const getOffre();
 		void setIdDepart(int dep);
 		void setIdArriv(int arrv);
 		void setDemande(int dem);
 		void setOffre(int off);
 	private:
 		int id_depart, id_arrv, demande, offre;
-};
+	};
+}
