@@ -3,7 +3,7 @@
 #include <algorithm>
 
 using namespace Project2;
-void ProblemVLS::generateDemandes(bool stochastique = false)
+void ProblemVLS::generateDemandes(bool stochastique)
 {
 	if (listeStation->Count > 0)
 	{
