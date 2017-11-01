@@ -1,5 +1,13 @@
 #include "Trajet.h"
 
+Trajet::Trajet(int dep, int arv, int dem) : id_depart(dep), id_arrv(arv), demande(dem), offre(0)
+{
+}
+
+Trajet::Trajet(int dep, int arv, int dem, int offre) : id_depart(dep), id_arrv(arv), demande(dem), offre(offre)
+{
+}
+
 int Trajet::getIdDepart() const
 {
 	return id_depart;

@@ -4,6 +4,8 @@
 class Trajet
 {
 	public:
+		Trajet(int dep, int arv, int dem);
+		Trajet(int dep, int arv, int dem, int offre);
 		int getIdDepart() const;
 		int getIdArrv() const;
 		int getDemande() const;
