@@ -151,7 +151,6 @@
     <ClCompile Include="Parsing.cpp" />
     <ClCompile Include="ProblemVLS.cpp" />
     <ClCompile Include="Station.cpp" />
-    <ClCompile Include="Teste.cpp" />
     <ClCompile Include="Trajet.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +161,6 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Parsing.h" />
-    <ClInclude Include="Teste.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx">

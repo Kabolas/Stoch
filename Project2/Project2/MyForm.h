@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "Teste.h"
 #include "MyForm.h"
 #include "Parsing.h"
 #include "Station.h"
@@ -529,7 +528,7 @@ namespace Project2 {
 			this->richTextBox1->Text += "LApatapata\n";
 			this->webBrowser1->Refresh();
 			//this->webBrowser1->Navigate("https://maps.google.fr/maps/");
-			this->listBox1->Items->Add(gcnew Project2::Teste("boot", 12));
+			//this->listBox1->Items->Add(gcnew Project2::Teste("boot", 12));
 		}
 
 		void PopDelBut() { this->button10->Enabled = true; this->button10->Visible = true; }
