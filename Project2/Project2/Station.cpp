@@ -22,6 +22,10 @@ int Station::getAvailableBikeStands() const
 	return available_bike_stands;
 }
 
+int Station::getBikeStands() {
+	return bike_stands;
+}
+
 void Station::print()
 {
 	std::cout << "Station \n" << "Id: "<< id << std::endl << "Contract id : " << contract_id << std::endl << "Name: " << name << std::endl << "Adresse: " << address << std::endl << "Latitude: " << lat << std::endl << "Longitude: " << lng << std::endl << "Banking terminal: " << banking << std::endl << "Station bonus: " << bonus << std::endl << "Ouvert: " << status << std::endl << "Place pour vélos total: " << bike_stands << std::endl << "places velos disponibles: " << available_bike_stands << std::endl << "Velos disponibles: " << available_bikes << std::endl << "Mise a jour le : " << last_update << std::endl<<std::endl;

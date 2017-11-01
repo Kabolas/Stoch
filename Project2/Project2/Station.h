@@ -12,6 +12,7 @@ class Station
 		int getId() const;
 		int getAvailableBikes() const;
 		int getAvailableBikeStands() const;
+		int getBikeStands();
 		void print();
 	private:
 		int id;
