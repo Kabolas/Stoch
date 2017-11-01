@@ -1,7 +1,4 @@
 #include "MyForm.h"
-#include "Parsing.h"
-#include "Station.h"
-#include "ProblemVLS.h"
 #include <random>
 
 using namespace System;
@@ -15,10 +12,9 @@ void Main(array<String^>^ args)
 	std::mt19937 gen(rd());
 
 	std::vector<std::string> buf;
-	Parser parse;
 	
-	ProblemVLS problem;
-	problem.printStation(1);
+	//ProblemVLS problem;
+	//problem.printStation(1);
 	//problem.printAllStations();
 	
 	Application::EnableVisualStyles();

@@ -2,8 +2,9 @@
 #include <algorithm>
 #include <ctime>
 
+using namespace Project2;
 
-bool Parser::readFile(std::string filePath, std::vector<std::string>& buffer)
+bool Project2::readFile(std::string filePath, Collections::ArrayList^ buffer)
 {
 	std::ifstream infile(filePath, std::ifstream::in);
 	if(infile.fail())
@@ -15,7 +16,7 @@ bool Parser::readFile(std::string filePath, std::vector<std::string>& buffer)
 
 	while (std::getline(infile, str))
 	{
-		buffer.push_back(str);
+		buffer->Add(gcnew System::String());
 	}
 
 	infile.close();
@@ -23,7 +24,7 @@ bool Parser::readFile(std::string filePath, std::vector<std::string>& buffer)
 	return true;
 }
 
-void Parser::readTextBike(std::string filePath, std::vector<Station>& stList)
+void readTextBike(std::string filePath, std::vector<Station>& stList)
 {
 	std::ifstream infile(filePath, std::ifstream::in);
 	if (infile.fail())
@@ -124,9 +125,9 @@ void Parser::readTextBike(std::string filePath, std::vector<Station>& stList)
 			buf_last_update = std::atoi(str.substr(str.find(":") + 1).c_str());
 			//std::cout << buf_last_update << ' ' << "done \n" << "END" <<std::endl;
 			++id_count;
-			Station st(id_count,buf_c_id,buf_contract_name,buf_name,buf_address,buf_lat,buf_lng,buf_banking,buf_bonus,buf_status,buf_bike_stands,buf_available_bike_stands,buf_available_bikes,buf_last_update);
+			//Station st(id_count,buf_c_id,buf_contract_name,buf_name,buf_address,buf_lat,buf_lng,buf_banking,buf_bonus,buf_status,buf_bike_stands,buf_available_bike_stands,buf_available_bikes,buf_last_update);
 			//st.print();
-			stList.push_back(st);
+			//stList.push_back(st);
 		}
 	}
 }

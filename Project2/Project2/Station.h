@@ -1,25 +1,23 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <vector>
 #include <ctime>
 
-
-class Station
-{
+namespace Project2 {
+	using namespace System;
+	public value class Station
+	{
 	public:
-		Station(int nid,int c_id, std::string c_contract_name,std::string c_name, std::string c_address, double c_lat, double c_lng, bool c_banking, bool c_bonus, bool c_status, int c_bike_stands, int c_available_bike_stands,int c_available_bikes, std::time_t c_last_update);
-		int getId() const;
-		int getAvailableBikes() const;
-		int getAvailableBikeStands() const;
+		Station(int nid, int c_id, String^ c_contract_name, String^ c_name, String^ c_address, double c_lat, double c_lng, bool c_banking, bool c_bonus, bool c_status, int c_bike_stands, int c_available_bike_stands, int c_available_bikes, std::time_t c_last_update);
+		int const getId();
+		int const getAvailableBikes();
+		int const getAvailableBikeStands();
 		int getBikeStands();
 		void print();
 	private:
 		int id;
 		int contract_id;
-		std::string contract_name;
-		std::string name;
-		std::string address;
+		String^ contract_name;
+		String^ name;
+		String^ address;
 		double lat;
 		double lng;
 		bool banking;
@@ -30,4 +28,5 @@ class Station
 		int available_bikes;
 		std::time_t last_update;
 
-};
+	};
+}

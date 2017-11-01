@@ -1,5 +1,10 @@
 ﻿#pragma once
 #include "Teste.h"
+#include "MyForm.h"
+#include "Parsing.h"
+#include "Station.h"
+#include "ProblemVLS.h"
+#include<vector>
 namespace Project2 {
 	using namespace EO;
 	using namespace System;
@@ -34,6 +39,7 @@ namespace Project2 {
 				delete components;
 			}
 		}
+	private: System::Collections::ArrayList^ Stations;
 	private: EO::WinForm::WebControl^  webBrowser1;
 	private: System::Windows::Forms::ComboBox^  comboBox1;
 	private: System::Windows::Forms::GroupBox^  groupBox1;
@@ -89,6 +95,7 @@ namespace Project2 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->Stations = gcnew System::Collections::ArrayList();
 			this->webBrowser1 = (gcnew EO::WinForm::WebControl());
 			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
@@ -540,7 +547,7 @@ namespace Project2 {
 		}
 		System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
 			if (this->listBox3->Items->Count == 0) {
-
+				this->Stations->Add(gcnew Station(0,0,"","","",0,0,0,0,0,0,0,0,0));
 			}
 			else if (this->listBox3->SelectedIndex != -1) {
 				this->listBox3->SelectedIndex = 0;
@@ -549,28 +556,28 @@ namespace Project2 {
 				this->listBox3->SelectedIndex++;
 			}
 		}
-	System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
-		if (this->listBox4->Items->Count == 0) {
+		System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
+			if (this->listBox4->Items->Count == 0) {
 
+			}
+			else if (this->listBox4->SelectedIndex != -1) {
+				this->listBox4->SelectedIndex = 0;
+			}
+			else {
+				this->listBox4->SelectedIndex++;
+			}
 		}
-		else if (this->listBox4->SelectedIndex != -1) {
-			this->listBox4->SelectedIndex = 0;
-		}
-		else {
-			this->listBox4->SelectedIndex++;
-		}
-	}
-	System::Void button8_Click(System::Object^  sender, System::EventArgs^  e) {
-		if (this->listBox5->Items->Count == 0) {
+		System::Void button8_Click(System::Object^  sender, System::EventArgs^  e) {
+			if (this->listBox5->Items->Count == 0) {
 
+			}
+			else if (this->listBox4->SelectedIndex != -1) {
+				this->listBox5->SelectedIndex = 0;
+			}
+			else {
+				this->listBox5->SelectedIndex++;
+			}
 		}
-		else if (this->listBox4->SelectedIndex != -1) {
-			this->listBox5->SelectedIndex = 0;
-		}
-		else {
-			this->listBox5->SelectedIndex++;
-		}
-	}
 	};
 
 
