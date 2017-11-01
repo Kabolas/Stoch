@@ -12,12 +12,12 @@ namespace Project2 {
 	{
 	public:
 		ProblemVLS();
-		void generateDemandes(bool stochastique = false);
+		void generateDemandes(bool stochastique);
 		void printStation(int s_id);
 		void printAllStations();
 	protected:
-		std::vector<Station> listeStation;
-		std::vector<Trajet> listeTrajet;
+		System::Collections::ArrayList^ listeStation;
+		System::Collections::ArrayList^ listeTrajet;
 		double getRandProba();
 		int getRandProba(int  min, int max);
 

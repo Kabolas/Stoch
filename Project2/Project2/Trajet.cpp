@@ -1,9 +1,13 @@
 #include "Trajet.h"
-
-int Trajet::getIdDepart() const
+using namespace Project2;
+Trajet::Trajet(int idepart, int idarr, int demand, int offre)
 {
-	return id_depart;
+	id_arrv = idarr;
+	id_depart = idepart;
+	demande = demand;
+	this->offre = offre;
 }
+int const Trajet::getIdDepart() { return id_depart; }
 
 int const Trajet::getIdArrv() { return id_arrv; }
 
