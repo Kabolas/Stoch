@@ -1,7 +1,9 @@
 #include "Trajet.h"
 
-using namespace Project2;
-int const Trajet::getIdDepart() { return id_depart; }
+int Trajet::getIdDepart() const
+{
+	return id_depart;
+}
 
 int const Trajet::getIdArrv() { return id_arrv; }
 

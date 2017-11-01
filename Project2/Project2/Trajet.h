@@ -5,10 +5,10 @@ namespace Project2 {
 	public value class Trajet
 	{
 	public:
-		int const getIdDepart();
-		int const getIdArrv();
-		int const getDemande();
-		int const getOffre();
+		int getIdDepart() const;
+		int getIdArrv() const;
+		int getDemande() const;
+		int getOffre() const;
 		void setIdDepart(int dep);
 		void setIdArriv(int arrv);
 		void setDemande(int dem);

@@ -3,6 +3,7 @@
 #include <vector>
 #include <random>
 
+#define TEMPERATURE_INITIALE 1000;
 class Recuit
 {
 
