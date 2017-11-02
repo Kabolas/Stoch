@@ -2,13 +2,6 @@
 
 using namespace Project2;
 
-Station::Station() :
-id(0), contract_id(0), contract_name(""), name(""), address(""),
-lat(0.0), lng(0.0), banking(false), bonus(false), status(false),
-bike_stands(0), available_bike_stands(0), available_bikes(0),
-last_update(0)
-{}
-
 Station::Station(int nid, int c_id, String^ c_contract_name, String^ c_name, String^ c_address, double c_lat, double c_lng, bool c_banking, bool c_bonus, bool c_status, int c_bike_stands, int c_available_bike_stands, int c_available_bikes, std::time_t c_last_update) :
 	id(nid), contract_id(c_id), contract_name(c_contract_name), name(c_name), address(c_address),
 	lat(c_lat), lng(c_lng), banking(c_banking), bonus(c_bonus), status(c_status),
