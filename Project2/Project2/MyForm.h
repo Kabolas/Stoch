@@ -443,6 +443,7 @@ namespace Project2 {
 			this->comboBox2->Name = L"comboBox2";
 			this->comboBox2->Size = System::Drawing::Size(138, 21);
 			this->comboBox2->TabIndex = 6;
+			this->comboBox2->SelectionChangeCommitted += gcnew System::EventHandler(this, &MyForm::FilterAsk);
 			// 
 			// button1
 			// 
@@ -549,7 +550,7 @@ namespace Project2 {
 		{
 			for each(Trajet ^traj in problem->getTrajets())
 			{
-				if (this->comboBox2->SelectedItem != NULL && traj->getIdDepart() == (int)comboBox2->SelectedItem)
+				if (this->comboBox2->SelectedItem != NULL && (traj->getIdDepart() == (int)comboBox2->SelectedItem|| traj->getIdArrv() == (int)comboBox2->SelectedItem))
 					listBox1->Items->Add(traj);
 				else if (this->comboBox2->SelectedItem == NULL)
 					this->listBox1->Items->Add(traj);
