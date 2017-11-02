@@ -2,10 +2,10 @@
 #include "Station.h"
 
 using namespace Project2;
-RecuitVLS::RecuitVLS(double tInitiale, int nIter, int pallier)
+RecuitVLS::RecuitVLS(double tInitiale, int nIter, int pallier, ProblemVLS^ prob)
 {
 	tempInitiale = tInitiale;
-	problem = gcnew ProblemVLS();
+	problem = prob;
 	temp = tempInitiale;
 	nIteration = nIter;
 	nPallier = pallier;
