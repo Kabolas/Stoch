@@ -2,7 +2,7 @@
 
 using namespace Project2;
 
-Station::Station(int nid, int c_id, String^ c_contract_name, String^ c_name, String^ c_address, double c_lat, double c_lng, bool c_banking, bool c_bonus, bool c_status, int c_bike_stands, int c_available_bike_stands, int c_available_bikes, std::time_t c_last_update) :
+Station::Station(int nid, int c_id, String^ c_contract_name, String^ c_name, String^ c_address, double c_lat, double c_lng, bool c_banking, bool c_bonus, bool c_status, int c_bike_stands, int c_available_bike_stands, int c_available_bikes, time_t c_last_update) :
 	id(nid), contract_id(c_id), contract_name(c_contract_name), name(c_name), address(c_address),
 	lat(c_lat), lng(c_lng), banking(c_banking), bonus(c_bonus), status(c_status),
 	bike_stands(c_bike_stands), available_bike_stands(c_available_bike_stands), available_bikes(c_available_bikes),
