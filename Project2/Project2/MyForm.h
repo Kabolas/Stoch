@@ -560,6 +560,11 @@ namespace Project2 {
 		{
 			RecuitVLS^ recuit = gcnew RecuitVLS(TEMPERATURE_INITIALE, int::Parse(this->textBox1->Text), 12, problem);
 			recuit->algo();
+			int k = 0;
+			for each(int i in recuit->getBestSolution()) {
+				richTextBox1->Text += "Station " + ((Station^)problem->getStations()[k])->getId() + " nombre de velos optimal : " + i+'\n'; 
+				k++;
+			}
 		}
 
 		void PopDelBut() { this->button10->Enabled = true; this->button10->Visible = true; }
