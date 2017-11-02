@@ -18,13 +18,9 @@ RecuitVLS::~RecuitVLS()
 
 
 System::Collections::ArrayList^ RecuitVLS::getVicinity(System::Collections::ArrayList^ solution) {
-	//TODO : J''ai besoin d'accéder à chaque station pour avoir leur place
-	//On a mis temporairement une initialisation ci-dessous, mais en vrai il faut accéder aux stations du problème.
-	System::Collections::ArrayList^ stations = gcnew System::Collections::ArrayList();
 
-	//Debut algo
+	System::Collections::ArrayList^ stations = problem.getStations();
 	System::Collections::ArrayList^ newSolution = gcnew System::Collections::ArrayList();
-
 	for (int i = 0; i < solution->Count; i++) {
 		newSolution->Add(solution[i]);
 	}
@@ -36,11 +32,8 @@ System::Collections::ArrayList^ RecuitVLS::getVicinity(System::Collections::Arra
 }
 
 System::Collections::ArrayList^ RecuitVLS::generateFirstSolution() {
-	//TODO : J''ai besoin d'accéder à chaque station pour avoir leur place
-	//On a mis temporairement une initialisation ci-dessous, mais en vrai il faut accéder aux stations du problème.
-	System::Collections::ArrayList^ stations = gcnew System::Collections::ArrayList();
 
-	//Debut algo
+	System::Collections::ArrayList^ stations = problem.getStations();
 	System::Collections::ArrayList^ firstSolution = gcnew System::Collections::ArrayList();
 	for each(Station s in stations) {
 		firstSolution->Add((int)getRandProba(0, s.getBikeStands()));
@@ -51,7 +44,8 @@ System::Collections::ArrayList^ RecuitVLS::generateFirstSolution() {
 }
 
 double RecuitVLS::getValue(System::Collections::ArrayList^ solution) {
-	//TODO : Il faut la valeur de la fonction objectif
+	
+	return problem.getValue(solution);
 }
 
 double RecuitVLS::changeTemp() {

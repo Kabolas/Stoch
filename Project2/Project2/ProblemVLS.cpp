@@ -89,3 +89,13 @@ int ProblemVLS::getRandProba(int min, int max)
 	if (re < min)	return min;
 	else return re;
 }
+
+
+double getValue(System::Collections::ArrayList^ solution) {
+	//TODO
+}
+
+System::Collections::ArrayList^ ProblemVLS::getStations()
+{
+	return listeStation;
+}

@@ -13,6 +13,8 @@ namespace Project2 {
 	public:
 		ProblemVLS();
 		void generateDemandes(bool stochastique);
+		double getValue(System::Collections::ArrayList^ solution);
+		System::Collections::ArrayList^ getStations();
 		void printStation(int s_id);
 		void printAllStations();
 	protected:
