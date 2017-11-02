@@ -124,7 +124,6 @@ double ProblemVLS::getValue(System::Collections::ArrayList^ solution) {
 	double value = 0;
 	for (int i = 0; i < listeStation->Count; i++) {
 		value = value + ((Station)listeStation[i]).getCost()*(int)solution[i];
-		for
 	}
 
 	return value;
