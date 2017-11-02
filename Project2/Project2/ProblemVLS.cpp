@@ -1,5 +1,6 @@
 #include "ProblemVLS.h"
 #include "Parsing.h"
+#include "Station.h"
 #include <algorithm>
 
 using namespace Project2;
@@ -119,8 +120,14 @@ int ProblemVLS::getRandProba(int min, int max)
 
 
 double ProblemVLS::getValue(System::Collections::ArrayList^ solution) {
-	//TODO
-	return 0.0;
+	
+	double value = 0;
+	for (int i = 0; i < listeStation->Count; i++) {
+		value = value + ((Station)listeStation[i]).getCost()*(int)solution[i];
+		for
+	}
+
+	return value;
 }
 
 System::Collections::ArrayList^ ProblemVLS::getStations()
