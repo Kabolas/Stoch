@@ -14,6 +14,7 @@ namespace Project2 {
 		void setIdArriv(int arrv);
 		void setDemande(int dem);
 		void setOffre(int off);
+		System::String^ ToString() override;
 	private:
 		int id_depart, id_arrv, demande, offre;
 	};

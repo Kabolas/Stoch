@@ -50,7 +50,11 @@ void ProblemVLS::generateDemandes(bool stochastique)
 	}
 }
 
-ProblemVLS::ProblemVLS() : listeStation(), listeTrajet() { readTextBike(System::IO::Directory::GetCurrentDirectory() + "\\stations_velib_paris.txt", listeStation); }
+ProblemVLS::ProblemVLS() {
+	listeStation = gcnew System::Collections::ArrayList();
+	listeTrajet = gcnew System::Collections::ArrayList(); 
+	readTextBike(System::IO::Directory::GetCurrentDirectory() + "\\stations_velib_paris.txt", listeStation);
+}
 
 void ProblemVLS::printStation(int s_id)
 {
@@ -94,3 +98,5 @@ System::Collections::ArrayList^ ProblemVLS::getStations()
 {
 	return listeStation;
 }
+
+System::Collections::ArrayList ^ ProblemVLS::getTrajets(){	return listeTrajet;}

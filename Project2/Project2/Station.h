@@ -11,6 +11,12 @@ namespace Project2 {
 		int const getAvailableBikes();
 		int const getAvailableBikeStands();
 		int getBikeStands();
+		int getCost();
+		void setCost(int c);
+		int getLessCost();
+		void setLessCost(int lc);
+		int getOverCost();
+		void setOverCost(int oc);
 		void print();
 	private:
 		int id;
@@ -23,7 +29,7 @@ namespace Project2 {
 		bool banking;
 		bool bonus;
 		bool status;
-		int bike_stands;
+		int bike_stands, cost, lesscost, overcost;
 		int available_bike_stands;
 		int available_bikes;
 		std::time_t last_update;

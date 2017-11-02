@@ -1,24 +1,23 @@
 #include "Station.h"
 
 using namespace Project2;
-Station::Station(int nid,int c_id, String^ c_contract_name, String^ c_name, String^ c_address, double c_lat, double c_lng, bool c_banking, bool c_bonus, bool c_status, int c_bike_stands, int c_available_bike_stands,int c_available_bikes, std::time_t c_last_update) : 
-	id(nid),contract_id(c_id), contract_name(c_contract_name),name(c_name),address(c_address),
-	lat(c_lat),lng(c_lng),banking(c_banking),bonus(c_bonus),status(c_status),
-	bike_stands(c_bike_stands),available_bike_stands(c_available_bike_stands),available_bikes(c_available_bikes),
+Station::Station(int nid, int c_id, String^ c_contract_name, String^ c_name, String^ c_address, double c_lat, double c_lng, bool c_banking, bool c_bonus, bool c_status, int c_bike_stands, int c_available_bike_stands, int c_available_bikes, std::time_t c_last_update) :
+	id(nid), contract_id(c_id), contract_name(c_contract_name), name(c_name), address(c_address),
+	lat(c_lat), lng(c_lng), banking(c_banking), bonus(c_bonus), status(c_status),
+	bike_stands(c_bike_stands), available_bike_stands(c_available_bike_stands), available_bikes(c_available_bikes),
 	last_update(c_last_update)
 {}
 
-int const Station::getId() 
+int const Station::getId()
 {
-	return id;
+	return contract_id;
 }
-
-int const Station::getAvailableBikes() 
+int const Station::getAvailableBikes()
 {
 	return available_bikes;
 }
 
-int const Station::getAvailableBikeStands() 
+int const Station::getAvailableBikeStands()
 {
 	return available_bike_stands;
 }
@@ -26,6 +25,18 @@ int const Station::getAvailableBikeStands()
 int Station::getBikeStands() {
 	return bike_stands;
 }
+
+int Station::getCost() { return cost; }
+
+void Project2::Station::setCost(int c) { cost = c; }
+
+int Project2::Station::getLessCost() { return lesscost; }
+
+void Project2::Station::setLessCost(int lc) { lesscost = lc; }
+
+int Project2::Station::getOverCost() { return overcost; }
+
+void Project2::Station::setOverCost(int oc) { overcost = oc; }
 
 void Station::print()
 {

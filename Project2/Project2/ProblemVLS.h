@@ -12,6 +12,7 @@ namespace Project2 {
 		void generateDemandes(bool stochastique);
 		double getValue(System::Collections::ArrayList^ solution);
 		System::Collections::ArrayList^ getStations();
+		System::Collections::ArrayList^ getTrajets();
 		void printStation(int s_id);
 		void printAllStations();
 	protected:
