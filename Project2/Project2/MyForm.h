@@ -207,7 +207,7 @@ namespace Project2 {
 			this->button11->TabIndex = 23;
 			this->button11->Text = L"→";
 			this->button11->UseVisualStyleBackColor = true;
-			this->button12->Click += gcnew System::EventHandler(this, &MyForm::button12_Click);
+			this->button11->Click += gcnew System::EventHandler(this, &MyForm::button12_Click);
 			// 
 			// textBox6
 			// 
@@ -225,7 +225,7 @@ namespace Project2 {
 			this->button12->TabIndex = 21;
 			this->button12->Text = L"←";
 			this->button12->UseVisualStyleBackColor = true;
-			this->button12->Click += gcnew System::EventHandler(this, &MyForm::button12_Click);
+			this->button12->Click += gcnew System::EventHandler(this, &MyForm::button11_Click);
 			// 
 			// listBox6
 			// 
@@ -679,23 +679,25 @@ namespace Project2 {
 			}
 			else if (this->listBox6->SelectedIndex == -1) {
 				this->listBox6->SelectedIndex = 0;
-				this->textBox6->Text = "" + this->listBox6->SelectedItem;
+				this->textBox6->Text = "" + ((Trajet^)this->listBox6->SelectedItem)->getDemande();
 			}
 			else {
 				((Trajet^)this->problem->getTrajets()[this->listBox6->SelectedIndex])->setDemande(int::Parse(this->textBox6->Text));
-				this->listBox6->Items[this->listBox6->SelectedIndex] = ((Trajet^)this->problem->getTrajets()[this->listBox6->SelectedIndex])->getDemande();
+				this->listBox6->Items[this->listBox6->SelectedIndex] = ((Trajet^)this->problem->getTrajets()[this->listBox6->SelectedIndex]);
 				this->listBox6->SelectedIndex++;
-				this->textBox6->Text = "" + this->listBox6->SelectedItem;
+				this->textBox6->Text = "" + ((Trajet^)this->listBox6->SelectedItem)->getDemande();
 			}
 			this->button12->Enabled = this->listBox6->SelectedIndex != 0 || this->listBox6->SelectedIndex != -1;
+			this->listBox6->Refresh();
 		}
 
 		System::Void button11_Click(System::Object^  sender, System::EventArgs^  e) {
 			((Trajet^)this->problem->getTrajets()[this->listBox6->SelectedIndex])->setDemande(int::Parse(this->textBox6->Text));
-			this->listBox6->Items[this->listBox6->SelectedIndex] = ((Trajet^)this->problem->getTrajets()[this->listBox6->SelectedIndex])->getDemande();
+			this->listBox6->Items[this->listBox6->SelectedIndex] = ((Trajet^)this->problem->getTrajets()[this->listBox6->SelectedIndex]);
 			this->listBox6->SelectedIndex--;
-			this->textBox6->Text = "" + this->listBox6->SelectedItem;
+			this->textBox6->Text = "" + ((Trajet^)this->listBox6->SelectedItem)->getDemande();
 			this->button12->Enabled = this->listBox6->SelectedIndex != 0 || this->listBox6->SelectedIndex != -1;
+			this->listBox6->Refresh();
 		}
 		System::Void Rand_Click(System::Object^  sender, System::EventArgs^  e) {
 			this->problem->randomizeStations();
