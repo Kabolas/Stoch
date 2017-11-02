@@ -131,7 +131,7 @@ System::Collections::ArrayList^ ProblemVLS::getStations()
 Station^ Project2::ProblemVLS::getStation(int s_id)
 {
 	Station^ stPtr = gcnew Station;
-	if (s_id  <= listeStation->FixedSize)
+	if (s_id  <= listeStation->Count)
 	{
 		for each(Station^ stat in listeStation)
 		{
