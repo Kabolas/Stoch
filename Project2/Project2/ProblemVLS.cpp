@@ -50,12 +50,21 @@ void ProblemVLS::generateDemandes(bool stochastique)
 	}
 }
 
-void Project2::ProblemVLS::calcul_couts(int s_id, int id_dep)
+void Project2::ProblemVLS::calcul_couts(int s_id, int id_dep, int id_arv)
 {
 	Station^ st = getStation(s_id);
-	if (!st->getId())
+	if (st != nullptr)
 	{
-		
+		Trajet^ trj = getTrajet(id_dep,id_arv);
+		if (trj != nullptr)
+		{
+			int c_surplus = 0, c_manque = 0;
+			c_surplus = st->getAvailableBikes() - trj->getOffre();
+			c_manque = trj->getOffre() - st->getAvailableBikes();
+
+			trj->setSurplus(c_surplus > 0 ? c_surplus : 0);
+			trj->setSurplus(c_manque > 0 ? c_manque : 0);
+		}
 	}
 	throw gcnew System::NotImplementedException();
 }
@@ -131,5 +140,21 @@ Station^ Project2::ProblemVLS::getStation(int s_id)
 		}
 	}
 	
+	return nullptr;
+}
+
+System::Collections::ArrayList ^ Project2::ProblemVLS::getTrajets()
+{
+	return listeTrajet;
+}
+
+Trajet ^ Project2::ProblemVLS::getTrajet(int id_dep, int id_arv)
+{
+	Trajet^ trj = gcnew Trajet;
+	for each(Trajet^ trajet in listeTrajet)
+	{
+		if (trajet->getIdDepart() == id_dep && trajet->getIdArrv() == id_arv)
+			return trj = trajet;
+	}
 	return nullptr;
 }
