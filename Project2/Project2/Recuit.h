@@ -1,13 +1,9 @@
 #pragma once
 
-#include <vector>
-#include <random>
-
-namespace Project2 {
 #define TEMPERATURE_INITIALE 1000;
+namespace Project2 {
 	public ref class Recuit
 	{
-
 	protected:
 		double tempInitiale;
 		double temp;

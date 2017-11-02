@@ -2,8 +2,7 @@
 #include "MyForm.h"
 #include "Parsing.h"
 #include "Station.h"
-#include "ProblemVLS.h"
-#include<vector>
+#include "RecuitVLS.h"
 namespace Project2 {
 	using namespace EO;
 	using namespace System;
@@ -38,7 +37,7 @@ namespace Project2 {
 				delete components;
 			}
 		}
-	private: System::Collections::ArrayList^ Stations;
+	private: RecuitVLS^ problem;
 	private: EO::WinForm::WebControl^  webBrowser1;
 	private: System::Windows::Forms::ComboBox^  comboBox1;
 	private: System::Windows::Forms::GroupBox^  groupBox1;
@@ -94,7 +93,6 @@ namespace Project2 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->Stations = gcnew System::Collections::ArrayList();
 			this->webBrowser1 = (gcnew EO::WinForm::WebControl());
 			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
@@ -131,6 +129,11 @@ namespace Project2 {
 			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->button10 = (gcnew System::Windows::Forms::Button());
+			//this->problem = gcnew ProblemVLS();
+			/*for each(Station^ stat in problem->getStations())
+			{
+				this->listBox2->Items->Add(stat->getBikeStands());
+			}*/
 			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
 			this->SuspendLayout();
@@ -500,6 +503,11 @@ namespace Project2 {
 			this->Controls->Add(this->webBrowser1);
 			this->Name = L"MyForm";
 			this->Text = L"Projet Stochastique";
+			this->problem = gcnew RecuitVLS(TEMPERATURE_INITIALE, 1000, 12);
+			for each(Station^ stat in problem->getProb()->getStations()) 
+			{
+				//listBox2->Items->Add(stat);
+			}
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
 			this->groupBox2->ResumeLayout(false);
@@ -546,7 +554,7 @@ namespace Project2 {
 		}
 		System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
 			if (this->listBox3->Items->Count == 0) {
-				this->Stations->Add(gcnew Station(0,0,"","","",0,0,0,0,0,0,0,0,0));
+				
 			}
 			else if (this->listBox3->SelectedIndex != -1) {
 				this->listBox3->SelectedIndex = 0;

@@ -74,5 +74,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\..\Desktop\stations_velib_paris.txt" />
+    <Text Include="stations_velib_paris.txt">
+      <Filter>Fichiers de ressources</Filter>
+    </Text>
   </ItemGroup>
 </Project>

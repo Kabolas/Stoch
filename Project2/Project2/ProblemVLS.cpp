@@ -36,14 +36,12 @@ void ProblemVLS::generateDemandes(bool stochastique)
 				 on augmente juste la demande pour celle ci,
 				on cree un nouveau trajet */
 				for each(Trajet^ traj in listeTrajet)
-				{
 					if ((traj->getIdDepart() == stat->getId()) && (traj->getIdDepart() == id_dest))
 					{
 						traj->setDemande(traj->getDemande() + 1);
 						found = true;
 						break;
 					}
-				}
 
 				if (!found)
 					listeTrajet->Add(gcnew Trajet(stat->getId(), id_dest, 1, stat->getAvailableBikes()));
@@ -52,11 +50,7 @@ void ProblemVLS::generateDemandes(bool stochastique)
 	}
 }
 
-ProblemVLS::ProblemVLS() : listeStation(), listeTrajet()
-{
-	readTextBike("c:\\Users\\Shankar\\Desktop\\stations_velib_paris.txt", listeStation);
-
-}
+ProblemVLS::ProblemVLS() : listeStation(), listeTrajet() { readTextBike(System::IO::Directory::GetCurrentDirectory() + "\\stations_velib_paris.txt", listeStation); }
 
 void ProblemVLS::printStation(int s_id)
 {
@@ -78,21 +72,22 @@ void ProblemVLS::printAllStations()
 
 double ProblemVLS::getRandProba()
 {
-	System::Random rd;
-	return rd.NextDouble();
+	System::Random^ rd = gcnew System::Random();
+	return rd->NextDouble();
 }
 
 int ProblemVLS::getRandProba(int min, int max)
 {
-	System::Random rd;
-	double re = max * rd.NextDouble();
+	System::Random^ rd = gcnew System::Random();
+	double re = max * rd->NextDouble();
 	if (re < min)	return min;
 	else return re;
 }
 
 
-double getValue(System::Collections::ArrayList^ solution) {
+double ProblemVLS::getValue(System::Collections::ArrayList^ solution) {
 	//TODO
+	return 0.0;
 }
 
 System::Collections::ArrayList^ ProblemVLS::getStations()

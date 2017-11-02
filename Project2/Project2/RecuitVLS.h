@@ -6,10 +6,9 @@
 namespace Project2 {
 	public ref class RecuitVLS : public Recuit
 	{
-
-	private:
-		double coefDiminutionTemp;
-		ProblemVLS problem;
+	private: 
+		ProblemVLS ^problem;
+	 double coefDiminutionTemp;
 
 	public:
 		RecuitVLS(double tInitiale, int nIter, int pallier);
@@ -19,6 +18,8 @@ namespace Project2 {
 		System::Collections::ArrayList^ generateFirstSolution() override;
 		double getValue(System::Collections::ArrayList^ solution) override;
 		double changeTemp() override;
+		ProblemVLS^ getProb();
+		void setIter(int nIter);
 	};
 }
 

@@ -19,7 +19,7 @@ Recuit::Recuit(double tInitiale, int nIter, int pallier)
 Recuit::~Recuit()
 {
 
-	
+
 }
 
 System::Collections::ArrayList^ Recuit::getBestSolution() {
@@ -32,10 +32,10 @@ double Recuit::getMinValue() {
 
 double Recuit::getRandProba(double min, double max)
 {
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_real_distribution<> dis(min, max);
-	return dis(gen);
+	System::Random^ rd = gcnew System::Random();
+	double gen = max* rd->NextDouble();
+	if (gen > min)		return gen;
+	else return min;
 }
 
 void Recuit::algo() {
