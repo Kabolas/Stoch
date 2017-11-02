@@ -10,12 +10,18 @@ namespace Project2 {
 		int const getIdArrv();
 		int const getDemande();
 		int const getOffre();
+		int const getSurplus();
+		int const getManque();
 		void setIdDepart(int dep);
 		void setIdArriv(int arrv);
 		void setDemande(int dem);
 		void setOffre(int off);
 		System::String^ ToString() override;
+		void setSurplus();
+		void setSurplus(int s);
+		void setManque();
+		void setManque(int m);
 	private:
-		int id_depart, id_arrv, demande, offre;
+		int id_depart, id_arrv, demande, offre, cout_manque, cout_surplus;
 	};
 }
