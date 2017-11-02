@@ -26,6 +26,8 @@ int Station::getBikeStands() {
 	return bike_stands;
 }
 
+void Project2::Station::setBikeStands(int bs) { bike_stands = bs; }
+
 int Station::getCost() { return cost; }
 
 void Project2::Station::setCost(int c) { cost = c; }

@@ -11,6 +11,7 @@ namespace Project2 {
 		int const getAvailableBikes();
 		int const getAvailableBikeStands();
 		int getBikeStands();
+		void setBikeStands(int bs);
 		int getCost();
 		void setCost(int c);
 		int getLessCost();
