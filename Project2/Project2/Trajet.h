@@ -17,9 +17,7 @@ namespace Project2 {
 		void setDemande(int dem);
 		void setOffre(int off);
 		System::String^ ToString() override;
-		void setSurplus();
 		void setSurplus(int s);
-		void setManque();
 		void setManque(int m);
 	private:
 		int id_depart, id_arrv, demande, offre, cout_manque, cout_surplus;
