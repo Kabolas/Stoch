@@ -13,7 +13,7 @@ namespace Project2 {
 		void calcul_couts(int s_id, int id_dep);
 		double getValue(System::Collections::ArrayList^ solution);
 		System::Collections::ArrayList^ getStations();
-		Station getStation(int s_id);
+		Station^ getStation(int s_id);
 		System::Collections::ArrayList^ getTrajets();
 		void printStation(int s_id);
 		void printAllStations();

@@ -50,6 +50,16 @@ void ProblemVLS::generateDemandes(bool stochastique)
 	}
 }
 
+void Project2::ProblemVLS::calcul_couts(int s_id, int id_dep)
+{
+	Station^ st = getStation(s_id);
+	if (!st->getId())
+	{
+		
+	}
+	throw gcnew System::NotImplementedException();
+}
+
 ProblemVLS::ProblemVLS() {
 	listeStation = gcnew System::Collections::ArrayList();
 	listeTrajet = gcnew System::Collections::ArrayList(); 
@@ -99,16 +109,17 @@ System::Collections::ArrayList^ ProblemVLS::getStations()
 	return listeStation;
 }
 
-Station Project2::ProblemVLS::getStation(int s_id)
+Station^ Project2::ProblemVLS::getStation(int s_id)
 {
+	Station^ stPtr = gcnew Station;
 	if (s_id  <= listeStation->FixedSize)
 	{
 		for each(Station^ stat in listeStation)
 		{
 			if (stat->getId() == s_id)
-				return *stat;
+				return stPtr = stat;
 		}
 	}
 	
-	return Station();
+	return nullptr;
 }
