@@ -692,6 +692,15 @@ namespace Project2 {
 		}
 		System::Void Rand_Click(System::Object^  sender, System::EventArgs^  e) {
 			this->problem->randomizeStations();
+			this->listBox2->Items->Clear();
+			this->listBox3->Items->Clear();
+			this->listBox4->Items->Clear();
+			for each(Station^ stat in problem->getStations())
+			{
+				this->listBox2->Items->Add(stat->getCost());
+				this->listBox3->Items->Add(stat->getLessCost());
+				this->listBox4->Items->Add(stat->getOverCost());
+			}
 		}
 		System::Void setIter(System::Object^  sender, System::EventArgs^  e) {
 			if (int::Parse(this->textBox1->Text) < 1000)
