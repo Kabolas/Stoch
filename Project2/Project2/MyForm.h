@@ -461,6 +461,7 @@ namespace Project2 {
 			this->textBox1->Size = System::Drawing::Size(97, 20);
 			this->textBox1->TabIndex = 7;
 			this->textBox1->Text = "1000";
+			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::setIter);
 			// 
 			// richTextBox1
 			// 
@@ -487,6 +488,7 @@ namespace Project2 {
 			this->button10->TabIndex = 9;
 			this->button10->Text = L"Randomiser";
 			this->button10->UseVisualStyleBackColor = true;
+			this->button10->Click += gcnew System::EventHandler(this, &MyForm::Rand_Click);
 			// 
 			// MyForm
 			// 
@@ -563,11 +565,11 @@ namespace Project2 {
 		void DepopDelBut() { this->button10->Enabled = false; this->button10->Visible = false; }
 
 		System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-				((Station^)this->problem->getProb()->getStations()[this->listBox2->SelectedIndex])->setCost(int::Parse(this->textBox2->Text));
-				this->listBox2->Items[this->listBox2->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox2->SelectedIndex])->getCost();
-				this->listBox2->SelectedIndex--;
-				this->textBox2->Text = "" + this->listBox2->SelectedItem;
-				this->button2->Enabled = this->listBox2->SelectedIndex != 0 || this->listBox2->SelectedIndex != -1;
+			((Station^)this->problem->getProb()->getStations()[this->listBox2->SelectedIndex])->setCost(int::Parse(this->textBox2->Text));
+			this->listBox2->Items[this->listBox2->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox2->SelectedIndex])->getCost();
+			this->listBox2->SelectedIndex--;
+			this->textBox2->Text = "" + this->listBox2->SelectedItem;
+			this->button2->Enabled = this->listBox2->SelectedIndex != 0 || this->listBox2->SelectedIndex != -1;
 		}
 
 		System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -584,7 +586,7 @@ namespace Project2 {
 				this->listBox2->SelectedIndex++;
 				this->textBox2->Text = "" + this->listBox2->SelectedItem;
 			}
-			this->button2->Enabled = this->listBox2->SelectedIndex != 0|| this->listBox2->SelectedIndex != -1;
+			this->button2->Enabled = this->listBox2->SelectedIndex != 0 || this->listBox2->SelectedIndex != -1;
 		}
 
 		System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -688,8 +690,14 @@ namespace Project2 {
 			this->textBox6->Text = "" + this->listBox6->SelectedItem;
 			this->button12->Enabled = this->listBox6->SelectedIndex != 0 || this->listBox6->SelectedIndex != -1;
 		}
-
+		System::Void Rand_Click(System::Object^  sender, System::EventArgs^  e) {
+			this->problem->getProb()->randomizeStations();
+		}
+		System::Void setIter(System::Object^  sender, System::EventArgs^  e) {
+			if (int::Parse(this->textBox1->Text) < 1000)
+				this->textBox1->Text = "1000";
+			else
+				this->problem->setIter(int::Parse(this->textBox1->Text));
+		}
 	};
-
-
 }
