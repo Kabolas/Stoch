@@ -129,11 +129,6 @@ namespace Project2 {
 			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->button10 = (gcnew System::Windows::Forms::Button());
-			//this->problem = gcnew ProblemVLS();
-			/*for each(Station^ stat in problem->getStations())
-			{
-				this->listBox2->Items->Add(stat->getBikeStands());
-			}*/
 			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
 			this->SuspendLayout();
@@ -153,6 +148,7 @@ namespace Project2 {
 			// 
 			this->comboBox1->FormattingEnabled = true;
 			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Mode", L"Stochastique", L"Déterministe" });
+			this->comboBox1->SelectedIndex = 0;
 			this->comboBox1->Location = System::Drawing::Point(7, 7);
 			this->comboBox1->Name = L"comboBox1";
 			this->comboBox1->Size = System::Drawing::Size(89, 21);
@@ -458,6 +454,7 @@ namespace Project2 {
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(97, 20);
 			this->textBox1->TabIndex = 7;
+			this->textBox1->Text = "1000";
 			// 
 			// richTextBox1
 			// 
@@ -478,14 +475,12 @@ namespace Project2 {
 			// 
 			// button10
 			// 
-			this->button10->Enabled = false;
 			this->button10->Location = System::Drawing::Point(102, 5);
 			this->button10->Name = L"button10";
 			this->button10->Size = System::Drawing::Size(75, 23);
 			this->button10->TabIndex = 9;
-			this->button10->Text = L"Supprimer";
+			this->button10->Text = L"Randomiser";
 			this->button10->UseVisualStyleBackColor = true;
-			this->button10->Visible = false;
 			// 
 			// MyForm
 			// 
@@ -504,9 +499,13 @@ namespace Project2 {
 			this->Name = L"MyForm";
 			this->Text = L"Projet Stochastique";
 			this->problem = gcnew RecuitVLS(TEMPERATURE_INITIALE, 1000, 12);
-			for each(Station^ stat in problem->getProb()->getStations()) 
+			for each(Station^ stat in problem->getProb()->getStations())
 			{
-				//listBox2->Items->Add(stat);
+				this->listBox2->Items->Add(stat->getCost());
+				this->listBox3->Items->Add(stat->getLessCost());
+				this->listBox4->Items->Add(stat->getOverCost());
+				this->listBox5->Items->Add(stat->getBikeStands());
+				this->comboBox2->Items->Add(stat->getId());
 			}
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
@@ -526,17 +525,32 @@ namespace Project2 {
 			this->textBox1->Enabled = !this->comboBox1->SelectedItem->Equals("Mode");
 			this->richTextBox1->Enabled = !this->comboBox1->SelectedItem->Equals("Mode");
 			if ((String^)this->comboBox1->SelectedItem == "Déterministe")
+			{
 				this->groupBox1->Size = System::Drawing::Size(170, 455);
+				this->problem->getProb()->generateDemandes(false);
+				for each(Trajet ^tej in this->problem->getProb()->getTrajets())
+					this->listBox6->Items->Add(tej);
+			}
 			else
+			{
 				this->groupBox1->Size = System::Drawing::Size(170, 340);
+				this->problem->getProb()->generateDemandes(true);
+			}
 		}
-
+		System::Void FilterAsk(System::Object^  sender, System::EventArgs^  e)
+		{
+			for each(Trajet ^traj in problem->getProb()->getTrajets())
+			{
+				if (this->comboBox2->SelectedItem != NULL && traj->getIdDepart() == (int)comboBox2->SelectedItem)
+					listBox1->Items->Add(traj);
+				else if (this->comboBox2->SelectedItem == NULL)
+					this->listBox1->Items->Add(traj);
+			}
+		}
 		System::Void ButtonClick(System::Object^ sender, System::EventArgs^ e)
 		{
 			this->richTextBox1->Text += "LApatapata\n";
 			this->webBrowser1->Refresh();
-			//this->webBrowser1->Navigate("https://maps.google.fr/maps/");
-			//this->listBox1->Items->Add(gcnew Project2::Teste("boot", 12));
 		}
 
 		void PopDelBut() { this->button10->Enabled = true; this->button10->Visible = true; }
@@ -545,34 +559,51 @@ namespace Project2 {
 			if (this->listBox2->Items->Count == 0) {
 
 			}
-			else if (this->listBox2->SelectedIndex != -1) {
+			else if (this->listBox2->SelectedIndex == -1) {
 				this->listBox2->SelectedIndex = 0;
+				this->textBox2->Text = "" + this->listBox2->SelectedItem;
 			}
 			else {
+				((Station^)this->problem->getProb()->getStations()[this->listBox2->SelectedIndex])->setCost(int::Parse(this->textBox2->Text));
+				this->listBox2->Items[this->listBox2->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox2->SelectedIndex])->getCost();
 				this->listBox2->SelectedIndex++;
+				this->textBox2->Text = "" + this->listBox2->SelectedItem;
 			}
+			this->button2->Enabled = this->listBox2->SelectedIndex != 0|| this->listBox2->SelectedIndex != -1;
 		}
 		System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
 			if (this->listBox3->Items->Count == 0) {
-				
+
 			}
-			else if (this->listBox3->SelectedIndex != -1) {
+			else if (this->listBox3->SelectedIndex == -1) {
 				this->listBox3->SelectedIndex = 0;
+				this->textBox3->Text = "" + this->listBox3->SelectedItem;
 			}
 			else {
+				((Station^)this->problem->getProb()->getStations()[this->listBox3->SelectedIndex])->setLessCost(int::Parse(this->textBox3->Text));
+				this->listBox3->Items[this->listBox3->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox3->SelectedIndex])->getLessCost();
 				this->listBox3->SelectedIndex++;
+				this->textBox3->Text = "" + this->listBox3->SelectedItem;
 			}
+			this->button5->Enabled = this->listBox3->SelectedIndex != 0 || this->listBox3->SelectedIndex != -1;
+
 		}
 		System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
 			if (this->listBox4->Items->Count == 0) {
 
 			}
-			else if (this->listBox4->SelectedIndex != -1) {
+			else if (this->listBox4->SelectedIndex == -1) {
 				this->listBox4->SelectedIndex = 0;
+				this->textBox4->Text = "" + this->listBox4->SelectedItem;
 			}
 			else {
+				((Station^)this->problem->getProb()->getStations()[this->listBox4->SelectedIndex])->setOverCost(int::Parse(this->textBox4->Text));
+				this->listBox4->Items[this->listBox4->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox4->SelectedIndex])->getOverCost();
 				this->listBox4->SelectedIndex++;
+				this->textBox4->Text = "" + this->listBox4->SelectedItem;
 			}
+			this->button7->Enabled = this->listBox4->SelectedIndex != 0 || this->listBox4->SelectedIndex != -1;
+
 		}
 		System::Void button8_Click(System::Object^  sender, System::EventArgs^  e) {
 			if (this->listBox5->Items->Count == 0) {

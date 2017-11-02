@@ -23,9 +23,9 @@ void Project2::readTextBike(String^ filePath, Collections::ArrayList^ stList)
 		else if (str->Contains("\"address\":"))
 			buf_address = str->Replace(",", "")->Split(':')[1]->Replace("\"", "");
 		else if (str->Contains("\"lat\":"))
-			buf_lat = double::Parse(str->Replace(",", "")->Split('"')[1]);
+			buf_lat = double::Parse(str->Replace(",", "")->Split(':')[1]->Replace(".", ","));
 		else if (str->Contains("\"lng\":"))
-			buf_lng = double::Parse(str->Replace(",", "")->Split('"')[1]);
+			buf_lng = double::Parse(str->Replace(",", "")->Split(':')[1]->Replace(".", ","));
 		else if (str->Contains("\"banking\":"))
 			buf_banking = str->Replace(",", "")->Split(':')[1]->Contains("true") ? true : false;
 		else if (str->Contains("\"bonus\":"))
@@ -42,8 +42,8 @@ void Project2::readTextBike(String^ filePath, Collections::ArrayList^ stList)
 			buf_available_bikes = int::Parse(str->Replace(",", "")->Split(':')[1]);
 		else if (str->Contains("\"last_update\":"))
 		{
-			buf_last_update = Convert::ToInt32(str->Replace(",", "")->Split(':')[1]);
-			stList->Add(gcnew Station(id_count, buf_c_id, buf_contract_name, buf_name, buf_address, buf_lat, buf_lng, buf_banking, buf_bonus, buf_status, buf_bike_stands, buf_available_bike_stands, buf_available_bikes, buf_last_update));
+			//buf_last_update = int::Parse(str->Replace(",", "")->Split(':')[1]);
+			stList->Add(gcnew Station(id_count++, buf_c_id, buf_contract_name, buf_name, buf_address, buf_lat, buf_lng, buf_banking, buf_bonus, buf_status, buf_bike_stands, buf_available_bike_stands, buf_available_bikes, 0));
 		}
 
 	}

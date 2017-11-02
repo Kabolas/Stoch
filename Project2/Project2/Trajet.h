@@ -16,6 +16,7 @@ namespace Project2 {
 		void setIdArriv(int arrv);
 		void setDemande(int dem);
 		void setOffre(int off);
+		System::String^ ToString() override;
 		void setSurplus();
 		void setSurplus(int s);
 		void setManque();

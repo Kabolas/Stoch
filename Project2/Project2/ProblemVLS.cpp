@@ -50,12 +50,11 @@ void ProblemVLS::generateDemandes(bool stochastique)
 	}
 }
 
-void Project2::ProblemVLS::calcul_couts(int s_id, int id_dep)
-{
-	throw gcnew System::NotImplementedException();
+ProblemVLS::ProblemVLS() {
+	listeStation = gcnew System::Collections::ArrayList();
+	listeTrajet = gcnew System::Collections::ArrayList(); 
+	readTextBike(System::IO::Directory::GetCurrentDirectory() + "\\stations_velib_paris.txt", listeStation);
 }
-
-ProblemVLS::ProblemVLS() : listeStation(), listeTrajet() { readTextBike(System::IO::Directory::GetCurrentDirectory() + "\\stations_velib_paris.txt", listeStation); }
 
 void ProblemVLS::printStation(int s_id)
 {

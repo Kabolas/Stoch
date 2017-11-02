@@ -14,6 +14,7 @@ namespace Project2 {
 		double getValue(System::Collections::ArrayList^ solution);
 		System::Collections::ArrayList^ getStations();
 		Station getStation(int s_id);
+		System::Collections::ArrayList^ getTrajets();
 		void printStation(int s_id);
 		void printAllStations();
 	protected:

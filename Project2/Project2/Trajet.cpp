@@ -33,6 +33,8 @@ void Trajet::setDemande(int dem) { demande = dem; }
 
 void Trajet::setOffre(int off) { offre = off; }
 
+System::String ^ Project2::Trajet::ToString() { return "station " + id_depart + "->" + " Demande :" + demande + " -> station " + id_arrv; }
+
 void Project2::Trajet::setSurplus()
 {
 	
