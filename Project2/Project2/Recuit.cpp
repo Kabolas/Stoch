@@ -33,9 +33,8 @@ double Recuit::getMinValue() {
 double Recuit::getRandProba(double min, double max)
 {
 	System::Random^ rd = gcnew System::Random();
-	double gen = max* rd->NextDouble();
-	if (gen > min)		return gen;
-	else return min;
+	double gen = rd->Next(min, max + 1);
+	return gen;
 }
 
 void Recuit::algo() {
