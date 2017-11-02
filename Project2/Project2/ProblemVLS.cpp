@@ -63,7 +63,7 @@ void Project2::ProblemVLS::calcul_couts(int s_id, int id_dep, int id_arv)
 			c_manque = trj->getOffre() - st->getAvailableBikes();
 
 			trj->setSurplus(c_surplus > 0 ? c_surplus : 0);
-			trj->setSurplus(c_manque > 0 ? c_manque : 0);
+			trj->setManque(c_manque > 0 ? c_manque : 0);
 		}
 	}
 	throw gcnew System::NotImplementedException();
