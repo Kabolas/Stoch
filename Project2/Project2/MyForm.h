@@ -443,7 +443,6 @@ namespace Project2 {
 			this->comboBox2->Name = L"comboBox2";
 			this->comboBox2->Size = System::Drawing::Size(138, 21);
 			this->comboBox2->TabIndex = 6;
-			this->comboBox2->SelectionChangeCommitted += gcnew System::EventHandler(this, &MyForm::FilterAsk);
 			// 
 			// button1
 			// 
@@ -550,7 +549,7 @@ namespace Project2 {
 		{
 			for each(Trajet ^traj in problem->getTrajets())
 			{
-				if (this->comboBox2->SelectedItem != NULL && (traj->getIdDepart() == (int)comboBox2->SelectedItem|| traj->getIdArrv() == (int)comboBox2->SelectedItem))
+				if (this->comboBox2->SelectedItem != NULL && traj->getIdDepart() == (int)comboBox2->SelectedItem)
 					listBox1->Items->Add(traj);
 				else if (this->comboBox2->SelectedItem == NULL)
 					this->listBox1->Items->Add(traj);
@@ -560,12 +559,6 @@ namespace Project2 {
 		{
 			RecuitVLS^ recuit = gcnew RecuitVLS(TEMPERATURE_INITIALE, int::Parse(this->textBox1->Text), 12, problem);
 			recuit->algo();
-			int k = 0;
-			richTextBox1->Text = "valeur minimale : "+ recuit->getMinValue();
-			for each(int i in recuit->getBestSolution()) {
-				richTextBox1->Text += "Station " + ((Station^)problem->getStations()[k])->getId() + " nombre de velos optimal : " + i+'\n'; 
-				k++;
-			}
 		}
 
 		void PopDelBut() { this->button10->Enabled = true; this->button10->Visible = true; }

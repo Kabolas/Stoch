@@ -11,6 +11,7 @@ namespace Project2 {
 		ProblemVLS();
 		void generateDemandes(bool stochastique);
 		void calcul_couts(int s_id, int id_dep, int id_arv);
+
 		double getValue(System::Collections::ArrayList^ solution);
 		System::Collections::ArrayList^ getStations();
 		Station^ getStation(int s_id);
