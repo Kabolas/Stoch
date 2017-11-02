@@ -11,7 +11,7 @@ namespace Project2 {
 		double coefDiminutionTemp;
 
 	public:
-		RecuitVLS(double tInitiale, int nIter, int pallier, ProblemVLS prob);
+		RecuitVLS(double tInitiale, int nIter, int pallier, ProblemVLS^ prob);
 		~RecuitVLS();
 
 		System::Collections::ArrayList^ getVicinity(System::Collections::ArrayList^ solution) override;

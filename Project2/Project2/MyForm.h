@@ -37,7 +37,7 @@ namespace Project2 {
 				delete components;
 			}
 		}
-	private: RecuitVLS^ problem;
+	private: ProblemVLS^ problem;
 	private: EO::WinForm::WebControl^  webBrowser1;
 	private: System::Windows::Forms::ComboBox^  comboBox1;
 	private: System::Windows::Forms::GroupBox^  groupBox1;
@@ -506,8 +506,8 @@ namespace Project2 {
 			this->Controls->Add(this->webBrowser1);
 			this->Name = L"MyForm";
 			this->Text = L"Projet Stochastique";
-			this->problem = gcnew RecuitVLS(TEMPERATURE_INITIALE, 1000, 12);
-			for each(Station^ stat in problem->getProb()->getStations())
+			this->problem = gcnew ProblemVLS();
+			for each(Station^ stat in problem->getStations())
 			{
 				this->listBox2->Items->Add(stat->getCost());
 				this->listBox3->Items->Add(stat->getLessCost());
@@ -535,19 +535,19 @@ namespace Project2 {
 			if ((String^)this->comboBox1->SelectedItem == "Déterministe")
 			{
 				this->groupBox1->Size = System::Drawing::Size(170, 455);
-				this->problem->getProb()->generateDemandes(false);
-				for each(Trajet ^tej in this->problem->getProb()->getTrajets())
+				this->problem->generateDemandes(false);
+				for each(Trajet ^tej in this->problem->getTrajets())
 					this->listBox6->Items->Add(tej);
 			}
 			else
 			{
 				this->groupBox1->Size = System::Drawing::Size(170, 340);
-				this->problem->getProb()->generateDemandes(true);
+				this->problem->generateDemandes(true);
 			}
 		}
 		System::Void FilterAsk(System::Object^  sender, System::EventArgs^  e)
 		{
-			for each(Trajet ^traj in problem->getProb()->getTrajets())
+			for each(Trajet ^traj in problem->getTrajets())
 			{
 				if (this->comboBox2->SelectedItem != NULL && traj->getIdDepart() == (int)comboBox2->SelectedItem)
 					listBox1->Items->Add(traj);
@@ -557,16 +557,16 @@ namespace Project2 {
 		}
 		System::Void ButtonClick(System::Object^ sender, System::EventArgs^ e)
 		{
-			this->richTextBox1->Text += "LApatapata\n";
-			this->webBrowser1->Refresh();
+			RecuitVLS^ recuit = gcnew RecuitVLS(TEMPERATURE_INITIALE, int::Parse(this->textBox1->Text), 12, problem);
+			recuit->algo();
 		}
 
 		void PopDelBut() { this->button10->Enabled = true; this->button10->Visible = true; }
 		void DepopDelBut() { this->button10->Enabled = false; this->button10->Visible = false; }
 
 		System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-			((Station^)this->problem->getProb()->getStations()[this->listBox2->SelectedIndex])->setCost(int::Parse(this->textBox2->Text));
-			this->listBox2->Items[this->listBox2->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox2->SelectedIndex])->getCost();
+			((Station^)this->problem->getStations()[this->listBox2->SelectedIndex])->setCost(int::Parse(this->textBox2->Text));
+			this->listBox2->Items[this->listBox2->SelectedIndex] = ((Station^)this->problem->getStations()[this->listBox2->SelectedIndex])->getCost();
 			this->listBox2->SelectedIndex--;
 			this->textBox2->Text = "" + this->listBox2->SelectedItem;
 			this->button2->Enabled = this->listBox2->SelectedIndex != 0 || this->listBox2->SelectedIndex != -1;
@@ -581,8 +581,8 @@ namespace Project2 {
 				this->textBox2->Text = "" + this->listBox2->SelectedItem;
 			}
 			else {
-				((Station^)this->problem->getProb()->getStations()[this->listBox2->SelectedIndex])->setCost(int::Parse(this->textBox2->Text));
-				this->listBox2->Items[this->listBox2->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox2->SelectedIndex])->getCost();
+				((Station^)this->problem->getStations()[this->listBox2->SelectedIndex])->setCost(int::Parse(this->textBox2->Text));
+				this->listBox2->Items[this->listBox2->SelectedIndex] = ((Station^)this->problem->getStations()[this->listBox2->SelectedIndex])->getCost();
 				this->listBox2->SelectedIndex++;
 				this->textBox2->Text = "" + this->listBox2->SelectedItem;
 			}
@@ -598,8 +598,8 @@ namespace Project2 {
 				this->textBox3->Text = "" + this->listBox3->SelectedItem;
 			}
 			else {
-				((Station^)this->problem->getProb()->getStations()[this->listBox3->SelectedIndex])->setLessCost(int::Parse(this->textBox3->Text));
-				this->listBox3->Items[this->listBox3->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox3->SelectedIndex])->getLessCost();
+				((Station^)this->problem->getStations()[this->listBox3->SelectedIndex])->setLessCost(int::Parse(this->textBox3->Text));
+				this->listBox3->Items[this->listBox3->SelectedIndex] = ((Station^)this->problem->getStations()[this->listBox3->SelectedIndex])->getLessCost();
 				this->listBox3->SelectedIndex++;
 				this->textBox3->Text = "" + this->listBox3->SelectedItem;
 			}
@@ -608,8 +608,8 @@ namespace Project2 {
 		}
 
 		System::Void button5_Click(System::Object^  sender, System::EventArgs^  e) {
-			((Station^)this->problem->getProb()->getStations()[this->listBox3->SelectedIndex])->setCost(int::Parse(this->textBox3->Text));
-			this->listBox3->Items[this->listBox3->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox3->SelectedIndex])->getCost();
+			((Station^)this->problem->getStations()[this->listBox3->SelectedIndex])->setCost(int::Parse(this->textBox3->Text));
+			this->listBox3->Items[this->listBox3->SelectedIndex] = ((Station^)this->problem->getStations()[this->listBox3->SelectedIndex])->getCost();
 			this->listBox3->SelectedIndex--;
 			this->textBox3->Text = "" + this->listBox3->SelectedItem;
 			this->button5->Enabled = this->listBox3->SelectedIndex != 0 || this->listBox3->SelectedIndex != -1;
@@ -624,8 +624,8 @@ namespace Project2 {
 				this->textBox4->Text = "" + this->listBox4->SelectedItem;
 			}
 			else {
-				((Station^)this->problem->getProb()->getStations()[this->listBox4->SelectedIndex])->setOverCost(int::Parse(this->textBox4->Text));
-				this->listBox4->Items[this->listBox4->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox4->SelectedIndex])->getOverCost();
+				((Station^)this->problem->getStations()[this->listBox4->SelectedIndex])->setOverCost(int::Parse(this->textBox4->Text));
+				this->listBox4->Items[this->listBox4->SelectedIndex] = ((Station^)this->problem->getStations()[this->listBox4->SelectedIndex])->getOverCost();
 				this->listBox4->SelectedIndex++;
 				this->textBox4->Text = "" + this->listBox4->SelectedItem;
 			}
@@ -634,8 +634,8 @@ namespace Project2 {
 		}
 
 		System::Void button7_Click(System::Object^  sender, System::EventArgs^  e) {
-			((Station^)this->problem->getProb()->getStations()[this->listBox4->SelectedIndex])->setCost(int::Parse(this->textBox4->Text));
-			this->listBox4->Items[this->listBox4->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox4->SelectedIndex])->getCost();
+			((Station^)this->problem->getStations()[this->listBox4->SelectedIndex])->setCost(int::Parse(this->textBox4->Text));
+			this->listBox4->Items[this->listBox4->SelectedIndex] = ((Station^)this->problem->getStations()[this->listBox4->SelectedIndex])->getCost();
 			this->listBox4->SelectedIndex--;
 			this->textBox4->Text = "" + this->listBox4->SelectedItem;
 			this->button7->Enabled = this->listBox4->SelectedIndex != 0 || this->listBox4->SelectedIndex != -1;
@@ -650,8 +650,8 @@ namespace Project2 {
 				this->textBox5->Text = "" + this->listBox5->SelectedItem;
 			}
 			else {
-				((Station^)this->problem->getProb()->getStations()[this->listBox5->SelectedIndex])->setBikeStands(int::Parse(this->textBox5->Text));
-				this->listBox5->Items[this->listBox5->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox5->SelectedIndex])->getBikeStands();
+				((Station^)this->problem->getStations()[this->listBox5->SelectedIndex])->setBikeStands(int::Parse(this->textBox5->Text));
+				this->listBox5->Items[this->listBox5->SelectedIndex] = ((Station^)this->problem->getStations()[this->listBox5->SelectedIndex])->getBikeStands();
 				this->listBox5->SelectedIndex++;
 				this->textBox5->Text = "" + this->listBox5->SelectedItem;
 			}
@@ -659,8 +659,8 @@ namespace Project2 {
 		}
 
 		System::Void button9_Click(System::Object^  sender, System::EventArgs^  e) {
-			((Station^)this->problem->getProb()->getStations()[this->listBox5->SelectedIndex])->setCost(int::Parse(this->textBox5->Text));
-			this->listBox5->Items[this->listBox5->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox5->SelectedIndex])->getCost();
+			((Station^)this->problem->getStations()[this->listBox5->SelectedIndex])->setCost(int::Parse(this->textBox5->Text));
+			this->listBox5->Items[this->listBox5->SelectedIndex] = ((Station^)this->problem->getStations()[this->listBox5->SelectedIndex])->getCost();
 			this->listBox5->SelectedIndex--;
 			this->textBox5->Text = "" + this->listBox5->SelectedItem;
 			this->button9->Enabled = this->listBox5->SelectedIndex != 0 || this->listBox5->SelectedIndex != -1;
@@ -675,8 +675,8 @@ namespace Project2 {
 				this->textBox6->Text = "" + this->listBox6->SelectedItem;
 			}
 			else {
-				((Trajet^)this->problem->getProb()->getTrajets()[this->listBox6->SelectedIndex])->setDemande(int::Parse(this->textBox6->Text));
-				this->listBox6->Items[this->listBox6->SelectedIndex] = ((Trajet^)this->problem->getProb()->getTrajets()[this->listBox6->SelectedIndex])->getDemande();
+				((Trajet^)this->problem->getTrajets()[this->listBox6->SelectedIndex])->setDemande(int::Parse(this->textBox6->Text));
+				this->listBox6->Items[this->listBox6->SelectedIndex] = ((Trajet^)this->problem->getTrajets()[this->listBox6->SelectedIndex])->getDemande();
 				this->listBox6->SelectedIndex++;
 				this->textBox6->Text = "" + this->listBox6->SelectedItem;
 			}
@@ -684,20 +684,18 @@ namespace Project2 {
 		}
 
 		System::Void button11_Click(System::Object^  sender, System::EventArgs^  e) {
-			((Trajet^)this->problem->getProb()->getTrajets()[this->listBox6->SelectedIndex])->setDemande(int::Parse(this->textBox6->Text));
-			this->listBox6->Items[this->listBox6->SelectedIndex] = ((Trajet^)this->problem->getProb()->getTrajets()[this->listBox6->SelectedIndex])->getDemande();
+			((Trajet^)this->problem->getTrajets()[this->listBox6->SelectedIndex])->setDemande(int::Parse(this->textBox6->Text));
+			this->listBox6->Items[this->listBox6->SelectedIndex] = ((Trajet^)this->problem->getTrajets()[this->listBox6->SelectedIndex])->getDemande();
 			this->listBox6->SelectedIndex--;
 			this->textBox6->Text = "" + this->listBox6->SelectedItem;
 			this->button12->Enabled = this->listBox6->SelectedIndex != 0 || this->listBox6->SelectedIndex != -1;
 		}
 		System::Void Rand_Click(System::Object^  sender, System::EventArgs^  e) {
-			this->problem->getProb()->randomizeStations();
+			this->problem->randomizeStations();
 		}
 		System::Void setIter(System::Object^  sender, System::EventArgs^  e) {
 			if (int::Parse(this->textBox1->Text) < 1000)
 				this->textBox1->Text = "1000";
-			else
-				this->problem->setIter(int::Parse(this->textBox1->Text));
 		}
 	};
 }
