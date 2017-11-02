@@ -10,8 +10,10 @@ namespace Project2 {
 	public:
 		ProblemVLS();
 		void generateDemandes(bool stochastique);
+		void calcul_couts(int s_id, int id_dep);
 		double getValue(System::Collections::ArrayList^ solution);
 		System::Collections::ArrayList^ getStations();
+		Station getStation(int s_id);
 		void printStation(int s_id);
 		void printAllStations();
 	protected:

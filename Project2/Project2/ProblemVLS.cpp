@@ -34,7 +34,7 @@ void ProblemVLS::generateDemandes(bool stochastique)
 				bool found = false;
 				/* s il y a deja un trajet pour la station d arrivee
 				 on augmente juste la demande pour celle ci,
-				on cree un nouveau trajet */
+				sinon on cree un nouveau trajet */
 				for each(Trajet^ traj in listeTrajet)
 					if ((traj->getIdDepart() == stat->getId()) && (traj->getIdDepart() == id_dest))
 					{
@@ -44,10 +44,15 @@ void ProblemVLS::generateDemandes(bool stochastique)
 					}
 
 				if (!found)
-					listeTrajet->Add(gcnew Trajet(stat->getId(), id_dest, 1, stat->getAvailableBikes()));
+					listeTrajet->Add(gcnew Trajet(stat->getId(), id_dest, 1, getRandProba(1,stat->getAvailableBikes()) ));
 			}
 		}
 	}
+}
+
+void Project2::ProblemVLS::calcul_couts(int s_id, int id_dep)
+{
+	throw gcnew System::NotImplementedException();
 }
 
 ProblemVLS::ProblemVLS() : listeStation(), listeTrajet() { readTextBike(System::IO::Directory::GetCurrentDirectory() + "\\stations_velib_paris.txt", listeStation); }
@@ -93,4 +98,18 @@ double ProblemVLS::getValue(System::Collections::ArrayList^ solution) {
 System::Collections::ArrayList^ ProblemVLS::getStations()
 {
 	return listeStation;
+}
+
+Station Project2::ProblemVLS::getStation(int s_id)
+{
+	if (s_id  <= listeStation->FixedSize)
+	{
+		for each(Station^ stat in listeStation)
+		{
+			if (stat->getId() == s_id)
+				return *stat;
+		}
+	}
+	
+	return Station();
 }
