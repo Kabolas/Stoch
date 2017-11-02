@@ -5,6 +5,7 @@ using namespace Project2;
 RecuitVLS::RecuitVLS(double tInitiale, int nIter, int pallier)
 {
 	tempInitiale = tInitiale;
+	problem = gcnew ProblemVLS();
 	temp = tempInitiale;
 	nIteration = nIter;
 	nPallier = pallier;
