@@ -15,6 +15,7 @@ namespace Project2 {
 		System::Collections::ArrayList^ getStations();
 		Station^ getStation(int s_id);
 		System::Collections::ArrayList^ getTrajets();
+		void randomizeStations();
 		void printStation(int s_id);
 		void printAllStations();
 	protected:

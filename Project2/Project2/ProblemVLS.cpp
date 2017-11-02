@@ -66,6 +66,16 @@ ProblemVLS::ProblemVLS() {
 	readTextBike(System::IO::Directory::GetCurrentDirectory() + "\\stations_velib_paris.txt", listeStation);
 }
 
+void Project2::ProblemVLS::randomizeStations()
+{
+	System::Random^ rand = gcnew System::Random();
+	for each(Station^ stat in listeStation) {
+		stat->setCost(rand->NextDouble() * 75);
+		stat->setLessCost(rand->NextDouble() * 75);
+		stat->setOverCost(rand->NextDouble() * 75);
+	}
+}
+
 void ProblemVLS::printStation(int s_id)
 {
 	//auto it = find_if(listeStation.begin(), listeStation.end(), [&](Station const& s) {return s.getId() == s_id;});

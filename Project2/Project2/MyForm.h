@@ -207,6 +207,7 @@ namespace Project2 {
 			this->button11->TabIndex = 23;
 			this->button11->Text = L"→";
 			this->button11->UseVisualStyleBackColor = true;
+			this->button12->Click += gcnew System::EventHandler(this, &MyForm::button12_Click);
 			// 
 			// textBox6
 			// 
@@ -224,6 +225,7 @@ namespace Project2 {
 			this->button12->TabIndex = 21;
 			this->button12->Text = L"←";
 			this->button12->UseVisualStyleBackColor = true;
+			this->button12->Click += gcnew System::EventHandler(this, &MyForm::button12_Click);
 			// 
 			// listBox6
 			// 
@@ -312,6 +314,7 @@ namespace Project2 {
 			this->button7->TabIndex = 9;
 			this->button7->Text = L"←";
 			this->button7->UseVisualStyleBackColor = true;
+			this->button7->Click += gcnew System::EventHandler(this, &MyForm::button7_Click);
 			// 
 			// listBox4
 			// 
@@ -330,6 +333,7 @@ namespace Project2 {
 			this->button9->TabIndex = 13;
 			this->button9->Text = L"←";
 			this->button9->UseVisualStyleBackColor = true;
+			this->button9->Click += gcnew System::EventHandler(this, &MyForm::button9_Click);
 			// 
 			// button4
 			// 
@@ -365,6 +369,7 @@ namespace Project2 {
 			this->button5->TabIndex = 5;
 			this->button5->Text = L"←";
 			this->button5->UseVisualStyleBackColor = true;
+			this->button5->Click += gcnew System::EventHandler(this, &MyForm::button5_Click);
 			// 
 			// button3
 			// 
@@ -392,6 +397,7 @@ namespace Project2 {
 			this->button2->TabIndex = 2;
 			this->button2->Text = L"←";
 			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
 			// 
 			// listBox3
 			// 
@@ -455,6 +461,7 @@ namespace Project2 {
 			this->textBox1->Size = System::Drawing::Size(97, 20);
 			this->textBox1->TabIndex = 7;
 			this->textBox1->Text = "1000";
+			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::setIter);
 			// 
 			// richTextBox1
 			// 
@@ -481,6 +488,7 @@ namespace Project2 {
 			this->button10->TabIndex = 9;
 			this->button10->Text = L"Randomiser";
 			this->button10->UseVisualStyleBackColor = true;
+			this->button10->Click += gcnew System::EventHandler(this, &MyForm::Rand_Click);
 			// 
 			// MyForm
 			// 
@@ -555,6 +563,15 @@ namespace Project2 {
 
 		void PopDelBut() { this->button10->Enabled = true; this->button10->Visible = true; }
 		void DepopDelBut() { this->button10->Enabled = false; this->button10->Visible = false; }
+
+		System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
+			((Station^)this->problem->getProb()->getStations()[this->listBox2->SelectedIndex])->setCost(int::Parse(this->textBox2->Text));
+			this->listBox2->Items[this->listBox2->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox2->SelectedIndex])->getCost();
+			this->listBox2->SelectedIndex--;
+			this->textBox2->Text = "" + this->listBox2->SelectedItem;
+			this->button2->Enabled = this->listBox2->SelectedIndex != 0 || this->listBox2->SelectedIndex != -1;
+		}
+
 		System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
 			if (this->listBox2->Items->Count == 0) {
 
@@ -569,8 +586,9 @@ namespace Project2 {
 				this->listBox2->SelectedIndex++;
 				this->textBox2->Text = "" + this->listBox2->SelectedItem;
 			}
-			this->button2->Enabled = this->listBox2->SelectedIndex != 0|| this->listBox2->SelectedIndex != -1;
+			this->button2->Enabled = this->listBox2->SelectedIndex != 0 || this->listBox2->SelectedIndex != -1;
 		}
+
 		System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
 			if (this->listBox3->Items->Count == 0) {
 
@@ -588,6 +606,15 @@ namespace Project2 {
 			this->button5->Enabled = this->listBox3->SelectedIndex != 0 || this->listBox3->SelectedIndex != -1;
 
 		}
+
+		System::Void button5_Click(System::Object^  sender, System::EventArgs^  e) {
+			((Station^)this->problem->getProb()->getStations()[this->listBox3->SelectedIndex])->setCost(int::Parse(this->textBox3->Text));
+			this->listBox3->Items[this->listBox3->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox3->SelectedIndex])->getCost();
+			this->listBox3->SelectedIndex--;
+			this->textBox3->Text = "" + this->listBox3->SelectedItem;
+			this->button5->Enabled = this->listBox3->SelectedIndex != 0 || this->listBox3->SelectedIndex != -1;
+		}
+
 		System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
 			if (this->listBox4->Items->Count == 0) {
 
@@ -605,18 +632,72 @@ namespace Project2 {
 			this->button7->Enabled = this->listBox4->SelectedIndex != 0 || this->listBox4->SelectedIndex != -1;
 
 		}
+
+		System::Void button7_Click(System::Object^  sender, System::EventArgs^  e) {
+			((Station^)this->problem->getProb()->getStations()[this->listBox4->SelectedIndex])->setCost(int::Parse(this->textBox4->Text));
+			this->listBox4->Items[this->listBox4->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox4->SelectedIndex])->getCost();
+			this->listBox4->SelectedIndex--;
+			this->textBox4->Text = "" + this->listBox4->SelectedItem;
+			this->button7->Enabled = this->listBox4->SelectedIndex != 0 || this->listBox4->SelectedIndex != -1;
+		}
+
 		System::Void button8_Click(System::Object^  sender, System::EventArgs^  e) {
 			if (this->listBox5->Items->Count == 0) {
 
 			}
-			else if (this->listBox4->SelectedIndex != -1) {
+			else if (this->listBox5->SelectedIndex == -1) {
 				this->listBox5->SelectedIndex = 0;
+				this->textBox5->Text = "" + this->listBox5->SelectedItem;
 			}
 			else {
+				((Station^)this->problem->getProb()->getStations()[this->listBox5->SelectedIndex])->setBikeStands(int::Parse(this->textBox5->Text));
+				this->listBox5->Items[this->listBox5->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox5->SelectedIndex])->getBikeStands();
 				this->listBox5->SelectedIndex++;
+				this->textBox5->Text = "" + this->listBox5->SelectedItem;
 			}
+			this->button9->Enabled = this->listBox5->SelectedIndex != 0 || this->listBox5->SelectedIndex != -1;
+		}
+
+		System::Void button9_Click(System::Object^  sender, System::EventArgs^  e) {
+			((Station^)this->problem->getProb()->getStations()[this->listBox5->SelectedIndex])->setCost(int::Parse(this->textBox5->Text));
+			this->listBox5->Items[this->listBox5->SelectedIndex] = ((Station^)this->problem->getProb()->getStations()[this->listBox5->SelectedIndex])->getCost();
+			this->listBox5->SelectedIndex--;
+			this->textBox5->Text = "" + this->listBox5->SelectedItem;
+			this->button9->Enabled = this->listBox5->SelectedIndex != 0 || this->listBox5->SelectedIndex != -1;
+		}
+
+		System::Void button12_Click(System::Object^  sender, System::EventArgs^  e) {
+			if (this->listBox6->Items->Count == 0) {
+
+			}
+			else if (this->listBox6->SelectedIndex == -1) {
+				this->listBox6->SelectedIndex = 0;
+				this->textBox6->Text = "" + this->listBox6->SelectedItem;
+			}
+			else {
+				((Trajet^)this->problem->getProb()->getTrajets()[this->listBox6->SelectedIndex])->setDemande(int::Parse(this->textBox6->Text));
+				this->listBox6->Items[this->listBox6->SelectedIndex] = ((Trajet^)this->problem->getProb()->getTrajets()[this->listBox6->SelectedIndex])->getDemande();
+				this->listBox6->SelectedIndex++;
+				this->textBox6->Text = "" + this->listBox6->SelectedItem;
+			}
+			this->button12->Enabled = this->listBox6->SelectedIndex != 0 || this->listBox6->SelectedIndex != -1;
+		}
+
+		System::Void button11_Click(System::Object^  sender, System::EventArgs^  e) {
+			((Trajet^)this->problem->getProb()->getTrajets()[this->listBox6->SelectedIndex])->setDemande(int::Parse(this->textBox6->Text));
+			this->listBox6->Items[this->listBox6->SelectedIndex] = ((Trajet^)this->problem->getProb()->getTrajets()[this->listBox6->SelectedIndex])->getDemande();
+			this->listBox6->SelectedIndex--;
+			this->textBox6->Text = "" + this->listBox6->SelectedItem;
+			this->button12->Enabled = this->listBox6->SelectedIndex != 0 || this->listBox6->SelectedIndex != -1;
+		}
+		System::Void Rand_Click(System::Object^  sender, System::EventArgs^  e) {
+			this->problem->getProb()->randomizeStations();
+		}
+		System::Void setIter(System::Object^  sender, System::EventArgs^  e) {
+			if (int::Parse(this->textBox1->Text) < 1000)
+				this->textBox1->Text = "1000";
+			else
+				this->problem->setIter(int::Parse(this->textBox1->Text));
 		}
 	};
-
-
 }
