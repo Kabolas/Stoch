@@ -96,9 +96,17 @@ void Project2::ProblemVLS::randomizeStations()
 
 void Project2::ProblemVLS::calculateObj()
 {
+	int cout_station = 0, cout_manque=0;
 	for each(Station^ stat in listeStation)
 	{
+		//c_i * x_i
+		cout_station += stat->getCost()*stat->getAvailableBikes();
+		
+		//v_i * I-_i_j_s
+		for each(Trajet^ trj in listeTrajet)
+		{
 
+		}
 	}
 }
 
