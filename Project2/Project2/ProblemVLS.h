@@ -20,6 +20,7 @@ namespace Project2 {
 		void randomizeStations();
 		void printStation(int s_id);
 		void printAllStations();
+		
 	protected:
 		System::Collections::ArrayList^ listeStation;
 		System::Collections::ArrayList^ listeTrajet;

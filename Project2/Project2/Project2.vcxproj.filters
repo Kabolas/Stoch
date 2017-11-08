@@ -71,6 +71,7 @@
     </None>
     <None Include="packages.config" />
     <None Include="..\..\..\..\..\Desktop\données_statiques_velib_paris.csv" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\..\Desktop\stations_velib_paris.txt" />

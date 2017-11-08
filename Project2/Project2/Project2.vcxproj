@@ -173,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\Desktop\données_statiques_velib_paris.csv" />
+    <None Include="ClassDiagram.cd" />
     <None Include="Connector.html" />
     <None Include="packages.config" />
   </ItemGroup>
