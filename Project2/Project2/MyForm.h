@@ -234,6 +234,7 @@ namespace Project2 {
 			this->listBox6->Name = L"listBox6";
 			this->listBox6->Size = System::Drawing::Size(157, 43);
 			this->listBox6->TabIndex = 20;
+			this->listBox6->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::Selectionlist6);
 			// 
 			// label5
 			// 
@@ -323,6 +324,7 @@ namespace Project2 {
 			this->listBox4->Name = L"listBox4";
 			this->listBox4->Size = System::Drawing::Size(157, 43);
 			this->listBox4->TabIndex = 8;
+			this->listBox4->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::Selectionlist4);
 			// 
 			// button9
 			// 
@@ -352,6 +354,7 @@ namespace Project2 {
 			this->listBox5->Name = L"listBox5";
 			this->listBox5->Size = System::Drawing::Size(157, 43);
 			this->listBox5->TabIndex = 12;
+			this->listBox5->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::Selectionlist5);
 			// 
 			// textBox3
 			// 
@@ -406,6 +409,7 @@ namespace Project2 {
 			this->listBox3->Name = L"listBox3";
 			this->listBox3->Size = System::Drawing::Size(157, 43);
 			this->listBox3->TabIndex = 1;
+			this->listBox3->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::Selectionlist3);
 			// 
 			// listBox2
 			// 
@@ -414,6 +418,7 @@ namespace Project2 {
 			this->listBox2->Name = L"listBox2";
 			this->listBox2->Size = System::Drawing::Size(157, 43);
 			this->listBox2->TabIndex = 0;
+			this->listBox2->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::Selectionlist2);
 			// 
 			// groupBox2
 			// 
@@ -524,6 +529,21 @@ namespace Project2 {
 		}
 #pragma endregion
 	private:
+		System::Void Selectionlist2(System::Object^  sender, System::EventArgs^  e) {
+			this->textBox2->Text = "" + listBox2->SelectedItem;
+		}
+		System::Void Selectionlist3(System::Object^  sender, System::EventArgs^  e) {
+			this->textBox3->Text = "" + listBox3->SelectedItem;
+		}
+		System::Void Selectionlist4(System::Object^  sender, System::EventArgs^  e) {
+			this->textBox4->Text = "" + listBox4->SelectedItem;
+		}
+		System::Void Selectionlist5(System::Object^  sender, System::EventArgs^  e) {
+			this->textBox5->Text = "" + listBox5->SelectedItem;
+		}
+		System::Void Selectionlist6(System::Object^  sender, System::EventArgs^  e) {
+			this->textBox6->Text = "" + listBox6->SelectedItem;
+		}
 		System::Void ModeSwitch(System::Object^  sender, System::EventArgs^  e)
 		{
 			this->groupBox2->Visible = this->comboBox1->SelectedItem->Equals("Stochastique");
