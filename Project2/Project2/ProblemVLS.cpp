@@ -44,8 +44,15 @@ void ProblemVLS::generateDemandes(bool stochastique)
 						break;
 					}
 
-				if (!found)
-					listeTrajet->Add(gcnew Trajet(stat->getId(), id_dest, 1, getRandProba(1,stat->getAvailableBikes()) ));
+				if (!found) {
+					System::Random^b = gcnew System::Random();
+					bool has = false;
+					for each(Trajet^ t in listeTrajet) {
+						if (t->getIdDepart() == stat->getId() && t->getIdArrv() == id_dest) { has = true; }
+					}
+					if(!has)
+						listeTrajet->Add(gcnew Trajet(stat->getId(), id_dest, b->Next(12), getRandProba(1, stat->getAvailableBikes())));
+				}
 			}
 		}
 	}
