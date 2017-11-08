@@ -16,6 +16,7 @@ namespace Project2 {
 		void setCost(int c);
 		int getLessCost();
 		void setLessCost(int lc);
+		void lessBikes(int bikes);
 		int getOverCost();
 		void setOverCost(int oc);
 		void print();

@@ -37,6 +37,11 @@ int Project2::Station::getLessCost() { return lesscost; }
 
 void Project2::Station::setLessCost(int lc) { lesscost = lc; }
 
+void Project2::Station::lessBikes(int bikes)
+{
+	available_bikes -= bikes;
+}
+
 int Project2::Station::getOverCost() { return overcost; }
 
 void Project2::Station::setOverCost(int oc) { overcost = oc; }
