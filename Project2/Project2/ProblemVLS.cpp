@@ -30,7 +30,7 @@ void ProblemVLS::generateDemandes(bool stochastique)
 				do
 				{
 					id_dest = getRandProba(1, taille);
-				} while (id_dest == stat->getId());
+				} while (id_dest == stat->getId() && id_dest > listeStation->Count);
 
 				bool found = false;
 				/* s il y a deja un trajet pour la station d arrivee
@@ -89,7 +89,10 @@ void Project2::ProblemVLS::randomizeStations()
 
 void Project2::ProblemVLS::calculateObj()
 {
+	for each(Station^ stat in listeStation)
+	{
 
+	}
 }
 
 void ProblemVLS::printStation(int s_id)
