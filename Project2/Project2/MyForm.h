@@ -579,6 +579,7 @@ namespace Project2 {
 		{
 			RecuitVLS^ recuit = gcnew RecuitVLS(TEMPERATURE_INITIALE, int::Parse(this->textBox1->Text), 12, problem);
 			recuit->algo();
+			this->richTextBox1->Text += recuit->afficher();
 		}
 
 		void PopDelBut() { this->button10->Enabled = true; this->button10->Visible = true; }

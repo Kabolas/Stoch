@@ -6,7 +6,7 @@
 namespace Project2 {
 	public ref class RecuitVLS : public Recuit
 	{
-	private: 
+	private:
 		ProblemVLS ^problem;
 		double coefDiminutionTemp;
 
@@ -20,6 +20,6 @@ namespace Project2 {
 		double changeTemp() override;
 		ProblemVLS^ getProb();
 		void setIter(int nIter);
+		String^ afficher() override;
 	};
 }
-

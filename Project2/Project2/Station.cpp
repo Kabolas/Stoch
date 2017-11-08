@@ -11,7 +11,7 @@ Station::Station(int nid, int c_id, String^ c_contract_name, String^ c_name, Str
 
 int const Station::getId()
 {
-	return contract_id;
+	return id;
 }
 int const Station::getAvailableBikes()
 {
