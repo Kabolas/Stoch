@@ -49,3 +49,12 @@ double RecuitVLS::changeTemp() { return temp * coefDiminutionTemp; }
 ProblemVLS ^ RecuitVLS::getProb() { return problem; }
 
 void RecuitVLS::setIter(int nIter) { this->nIteration = nIter; }
+
+String^ RecuitVLS::afficher() {
+
+	String^ s = "Solution :\n";
+	for (int i = 0; i<bestSolution->Count; i++) {
+		s += "Station " + i + " : " + bestSolution[i] + " velos.\n";
+	}
+	return s;
+}

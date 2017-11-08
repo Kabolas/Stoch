@@ -67,10 +67,10 @@ void Project2::ProblemVLS::calcul_couts(int s_id, int id_dep, int id_arv)
 			trj->setManque(c_manque > 0 ? c_manque : 0);
 		}
 	}
-	throw gcnew System::NotImplementedException();
 }
 
-ProblemVLS::ProblemVLS() {
+ProblemVLS::ProblemVLS()
+{
 	listeStation = gcnew System::Collections::ArrayList();
 	listeTrajet = gcnew System::Collections::ArrayList(); 
 	readTextBike(System::IO::Directory::GetCurrentDirectory() + "\\stations_velib_paris.txt", listeStation);
@@ -79,11 +79,17 @@ ProblemVLS::ProblemVLS() {
 void Project2::ProblemVLS::randomizeStations()
 {
 	System::Random^ rand = gcnew System::Random();
-	for each(Station^ stat in listeStation) {
+	for each(Station^ stat in listeStation)
+	{
 		stat->setCost(rand->NextDouble() * 75);
 		stat->setLessCost(rand->NextDouble() * 75);
 		stat->setOverCost(rand->NextDouble() * 75);
 	}
+}
+
+void Project2::ProblemVLS::calculateObj()
+{
+
 }
 
 void ProblemVLS::printStation(int s_id)

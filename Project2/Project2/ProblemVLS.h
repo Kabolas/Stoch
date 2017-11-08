@@ -18,6 +18,7 @@ namespace Project2 {
 		System::Collections::ArrayList^ getTrajets();
 		Trajet^ getTrajet(int id_dep,int id_arv);
 		void randomizeStations();
+		void calculateObj();
 		void printStation(int s_id);
 		void printAllStations();
 		
