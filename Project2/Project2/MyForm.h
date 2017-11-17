@@ -141,8 +141,8 @@ namespace Project2 {
 			// comboBox1
 			// 
 			this->comboBox1->FormattingEnabled = true;
-			this->comboBox1->SelectedIndex = 0;
 			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Mode", L"Stochastique", L"Déterministe" });
+			this->comboBox1->SelectedIndex = 0;
 			this->comboBox1->Location = System::Drawing::Point(7, 7);
 			this->comboBox1->Name = L"comboBox1";
 			this->comboBox1->Size = System::Drawing::Size(89, 21);
@@ -496,6 +496,7 @@ namespace Project2 {
 			this->textBox7->Name = L"textBox7";
 			this->textBox7->Size = System::Drawing::Size(100, 20);
 			this->textBox7->TabIndex = 10;
+			this->textBox7->TextChanged += gcnew System::EventHandler(this, &MyForm::setStatRec);
 			// 
 			// label7
 			// 
@@ -550,7 +551,7 @@ namespace Project2 {
 				if (stat->getId() != 0) aj += ",";
 				this->loadingHtml = this->loadingHtml->Insert(this->loadingHtml->IndexOf("var locations = [") + 17, aj);
 			}
-			System::IO::File::WriteAllText(System::IO::Directory::GetCurrentDirectory() + "/Test2.html", this->loadingHtml);
+			//System::IO::File::WriteAllText(System::IO::Directory::GetCurrentDirectory() + "/Test2.html", this->loadingHtml);
 			this->webBrowser1->WebView->LoadHtml(this->loadingHtml);
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
@@ -751,16 +752,84 @@ namespace Project2 {
 			this->listBox2->Items->Clear();
 			this->listBox3->Items->Clear();
 			this->listBox4->Items->Clear();
+			this->loadingHtml = System::IO::File::ReadAllText(System::IO::Directory::GetCurrentDirectory() + "/Test.html");
+			int num = 0;
+			if (int::TryParse(this->textBox7->Text, num)) {}
+			else num = problem->getStations()->Count;
 			for each(Station^ stat in problem->getStations())
 			{
-				this->listBox2->Items->Add(stat->getCost());
-				this->listBox3->Items->Add(stat->getLessCost());
-				this->listBox4->Items->Add(stat->getOverCost());
+				if (stat->getId() <= num) {
+					this->listBox2->Items->Add(stat->getCost());
+					this->listBox3->Items->Add(stat->getLessCost());
+					this->listBox4->Items->Add(stat->getOverCost());
+					String ^aj = "['" + stat->getNom()->Replace("'", " ") + "\\n" + genererInfoMarqueur(stat)
+						+ "', " + ("" + stat->getLat())->Replace(",", ".") + "," + ("" + stat->getLng())->Replace(",", ".")
+						+ "," + stat->getId() + "]";
+					if (stat->getId() != 0) aj += ",";
+					this->loadingHtml = this->loadingHtml->Insert(this->loadingHtml->IndexOf("var locations = [") + 17, aj);
+				}
 			}
+			//System::IO::File::WriteAllText(System::IO::Directory::GetCurrentDirectory() + "/Test2.html", this->loadingHtml);
+			this->webBrowser1->WebView->LoadHtml(this->loadingHtml);
 		}
 		System::Void setIter(System::Object^  sender, System::EventArgs^  e) {
 			if (int::Parse(this->textBox1->Text) < 1000)
 				this->textBox1->Text = "1000";
+		}
+		System::Void setStatRec(System::Object^ sender, System::EventArgs^ e) {
+			int  num, cmp = 0;
+			if(textBox7->Text !=""){
+				if (int::TryParse(this->textBox7->Text, num)) {
+					this->loadingHtml = System::IO::File::ReadAllText(System::IO::Directory::GetCurrentDirectory() + "/Test.html");
+					this->listBox2->Items->Clear();
+					this->listBox3->Items->Clear();
+					this->listBox4->Items->Clear();
+					this->comboBox2->Items->Clear();
+					this->listBox5->Items->Clear();
+					for each(Station^ stat in problem->getStations())
+					{
+						if(stat->getId()<= num){
+						this->listBox2->Items->Add(stat->getCost());
+						this->listBox3->Items->Add(stat->getLessCost());
+						this->listBox4->Items->Add(stat->getOverCost());
+						this->listBox5->Items->Add(stat->getBikeStands());
+						this->comboBox2->Items->Add(stat->getId());
+						String ^aj = "['" + stat->getNom()->Replace("'", " ") + "\\n" + genererInfoMarqueur(stat)
+							+ "', " + ("" + stat->getLat())->Replace(",", ".") + "," + ("" + stat->getLng())->Replace(",", ".")
+							+ "," + stat->getId() + "]";
+						if (stat->getId() != 0) aj += ",";
+						this->loadingHtml = this->loadingHtml->Insert(this->loadingHtml->IndexOf("var locations = [") + 17, aj);
+						}
+						else break;
+					}
+					//System::IO::File::WriteAllText(System::IO::Directory::GetCurrentDirectory() + "/Test2.html", this->loadingHtml);
+					this->webBrowser1->WebView->LoadHtml(this->loadingHtml);
+				}
+			}
+			else{
+				this->loadingHtml = System::IO::File::ReadAllText(System::IO::Directory::GetCurrentDirectory() + "/Test.html");
+				this->listBox2->Items->Clear();
+				this->listBox3->Items->Clear();
+				this->listBox4->Items->Clear();
+				this->comboBox2->Items->Clear();
+				this->listBox5->Items->Clear(); 
+				for each(Station^ stat in problem->getStations())
+				{
+
+					this->listBox2->Items->Add(stat->getCost());
+					this->listBox3->Items->Add(stat->getLessCost());
+					this->listBox4->Items->Add(stat->getOverCost());
+					this->listBox5->Items->Add(stat->getBikeStands());
+					this->comboBox2->Items->Add(stat->getId());
+					String ^aj = "['" + stat->getNom()->Replace("'", " ") + "\\n" + genererInfoMarqueur(stat)
+						+ "', " + ("" + stat->getLat())->Replace(",", ".") + "," + ("" + stat->getLng())->Replace(",", ".")
+						+ "," + stat->getId() + "]";
+					if (stat->getId() != 0) aj += ",";
+					this->loadingHtml = this->loadingHtml->Insert(this->loadingHtml->IndexOf("var locations = [") + 17, aj);
+				}
+				//System::IO::File::WriteAllText(System::IO::Directory::GetCurrentDirectory() + "/Test2.html", this->loadingHtml);
+				this->webBrowser1->WebView->LoadHtml(this->loadingHtml);
+			}
 		}
 	};
 }
