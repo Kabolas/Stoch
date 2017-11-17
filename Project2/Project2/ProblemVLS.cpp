@@ -30,7 +30,7 @@ void ProblemVLS::generateDemandes(bool stochastique)
 				do
 				{
 					id_dest = getRandProba(1, taille);
-				} while (id_dest == stat->getId());
+				} while (id_dest == stat->getId() && id_dest > listeStation->Count);
 
 				bool found = false;
 				/* s il y a deja un trajet pour la station d arrivee
@@ -62,12 +62,12 @@ void ProblemVLS::generateDemandes(bool stochastique)
 	}
 }
 
-void Project2::ProblemVLS::calcul_couts(int s_id, int id_dep, int id_arv)
+void Project2::ProblemVLS::calcul_couts(int s_id, int id_arv)
 {
 	Station^ st = getStation(s_id);
 	if (st != nullptr)
 	{
-		Trajet^ trj = getTrajet(id_dep,id_arv);
+		Trajet^ trj = getTrajet(s_id,id_arv);
 		if (trj != nullptr)
 		{
 			int c_surplus = 0, c_manque = 0;
@@ -98,10 +98,6 @@ void Project2::ProblemVLS::randomizeStations()
 	}
 }
 
-void Project2::ProblemVLS::calculateObj()
-{
-
-}
 
 void ProblemVLS::printStation(int s_id)
 {
@@ -137,11 +133,37 @@ int ProblemVLS::getRandProba(int min, int max)
 
 
 double ProblemVLS::getValue(System::Collections::ArrayList^ solution) {
-	
+
 	double value = 0;
 	for (int i = 0; i < listeStation->Count; i++) {
 		value = value + ((Station)listeStation[i]).getCost()*(int)solution[i];
+		double o = (double)solution[i] - ((Station)listeStation[i]).getBikeStands();
+		for each(Trajet t in getTrajetsTo(((Station)listeStation[i]))) {
+			o = o - t.getOffre();
+			calcul_couts(((Station)listeStation[i]).getId(),t.getIdArrv());
+		}
+		for each(Trajet t in getTrajetsFrom(((Station)listeStation[i]))) {
+			o = o + t.getOffre();
+		}
+		if (o < 0)
+			o = 0;
+		value = value + o*((Station)listeStation[i]).getOverCost();
 	}
+	int cout_manque = 0;
+	for each(Station^ stat in listeStation)
+	{
+		int id_dest_tmp = 0;
+		//v_i * I-_i_j_s en recuperant les trajets de destinations
+		for each(Trajet^ trj in listeTrajet)
+		{
+			if (trj->getIdDepart() == stat->getId() && trj->getIdArrv() > id_dest_tmp)
+			{
+				id_dest_tmp = trj->getIdArrv();
+				cout_manque += stat->getLessCost()*trj->getManque();
+			}
+		}
+	}
+	value += cout_manque;
 
 	return value;
 }
@@ -180,4 +202,26 @@ Trajet ^ Project2::ProblemVLS::getTrajet(int id_dep, int id_arv)
 			return trj = trajet;
 	}
 	return nullptr;
+}
+
+System::Collections::ArrayList^ ProblemVLS::getTrajetsFrom(Station^ s) {
+
+	System::Collections::ArrayList^ a = gcnew System::Collections::ArrayList();
+	for each(Trajet^ t in listeTrajet) {
+		if (t->getIdDepart() == s->getId()) {
+			a->Add(t);
+		}
+	}
+	return a;
+}
+
+System::Collections::ArrayList^ ProblemVLS::getTrajetsTo(Station^ s) {
+
+	System::Collections::ArrayList^ a = gcnew System::Collections::ArrayList();
+	for each(Trajet^ t in listeTrajet) {
+		if (t->getIdArrv() == s->getId()) {
+			a->Add(t);
+		}
+	}
+	return a;
 }
