@@ -18,6 +18,21 @@ int const Station::getAvailableBikes()
 	return available_bikes;
 }
 
+String ^ Project2::Station::getNom()
+{
+	return name;
+}
+
+double Project2::Station::getLng()
+{
+	return lng;
+}
+
+double Project2::Station::getLat()
+{
+	return lat;
+}
+
 int const Station::getAvailableBikeStands()
 {
 	return available_bike_stands;

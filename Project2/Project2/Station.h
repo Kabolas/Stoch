@@ -9,6 +9,9 @@ namespace Project2 {
 		Station(int nid, int c_id, String^ c_contract_name, String^ c_name, String^ c_address, double c_lat, double c_lng, bool c_banking, bool c_bonus, bool c_status, int c_bike_stands, int c_available_bike_stands, int c_available_bikes, std::time_t c_last_update);
 		int const getId();
 		int const getAvailableBikes();
+		String ^getNom();
+		double getLng();
+		double getLat();
 		int const getAvailableBikeStands();
 		int getBikeStands();
 		void setBikeStands(int bs);

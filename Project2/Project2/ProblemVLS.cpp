@@ -52,7 +52,7 @@ void ProblemVLS::generateDemandes(bool stochastique)
 					}
 					if (!has)
 					{
-						int ofer = getRandProba(1, stat->getAvailableBikes());
+						int ofer = getRandProba(0, stat->getAvailableBikes());
 						listeTrajet->Add(gcnew Trajet(stat->getId(), id_dest, b->Next(12), ofer));
 						stat->lessBikes(ofer);
 					}
