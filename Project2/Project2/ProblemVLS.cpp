@@ -132,9 +132,9 @@ double ProblemVLS::getValue(System::Collections::ArrayList^ solution) {
 
 	double value = 0;
 	for (int i = 0; i < listeStation->Count; i++) {
-		value = value + ((Station)listeStation[i]).getCost()*(int)solution[i];
-		double o = (double)solution[i] - ((Station)listeStation[i]).getBikeStands();
-		for each(Trajet t in getTrajetsTo(((Station)listeStation[i]))) {
+		value = value + ((Station^)listeStation[i])->getCost()*(int)solution[i];
+		int o = ((int)solution[i]) - ((Station^)listeStation[i])->getBikeStands();
+		for each(Trajet t in getTrajetsTo(((Station^)listeStation[i]))) {
 			o = o - t.getOffre();
 			calcul_couts(((Station)listeStation[i]).getId(),t.getIdArrv());
 		}

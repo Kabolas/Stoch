@@ -26,14 +26,18 @@ System::Collections::ArrayList^ RecuitVLS::getVicinity(System::Collections::Arra
 		newSolution->Add(solution[i]);
 	}
 
-
-	int stationWinsBike = (int)getRandProba(0, (double)solution->Count);
-	int stationLosesBike = stationWinsBike;
-	while (stationLosesBike == stationWinsBike) {
-		stationLosesBike = (int)getRandProba(0, (double)solution->Count);
-	}
-	newSolution[stationLosesBike] = ((int)newSolution[stationLosesBike]) -1;
-	newSolution[stationWinsBike] = ((int)newSolution[stationLosesBike]) +1;
+	int stationWinsBike = 0;
+	int stationLosesBike = 0;
+	do {
+		stationWinsBike = (int)getRandProba(0, (double)solution->Count  -1);
+	} while ((int)solution[stationWinsBike] >= problem->getStation(stationWinsBike)->getBikeStands());
+	do {
+		stationLosesBike = (int)getRandProba(0, (double)solution->Count -1);
+	} while (stationLosesBike == stationWinsBike && (int)solution[stationWinsBike] < 1);
+	if ((int)newSolution[stationLosesBike] > 0)
+		newSolution[stationLosesBike] = ((int)newSolution[stationLosesBike]) - 1;
+	if ((int)newSolution[stationWinsBike] < problem->getStation(stationWinsBike)->getBikeStands())
+		newSolution[stationWinsBike] = ((int)newSolution[stationWinsBike]) +1;
 	return newSolution;
 }
 
