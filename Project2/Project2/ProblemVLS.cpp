@@ -36,24 +36,35 @@ void ProblemVLS::generateDemandes(bool stochastique)
 				/* s il y a deja un trajet pour la station d arrivee
 				 on augmente juste la demande pour celle ci,
 				sinon on cree un nouveau trajet */
-				for each(Trajet^ traj in listeTrajet)
-					if ((traj->getIdDepart() == stat->getId()) && (traj->getIdDepart() == id_dest))
+				/*for each(Trajet^ traj in listeTrajet)
+					if ((traj->getIdDepart() == stat->getId()) && (traj->getIdArrv() == id_dest))
 					{
 						traj->setDemande(traj->getDemande() + 1);
 						found = true;
 						break;
-					}
+					}*/
 
-				if (!found) {
+				Trajet ^ trajet = getTrajet(stat->getId(),id_dest);
+				if (trajet != nullptr)
+				{
+					trajet->setDemande(trajet->getDemande() + 1);
+					found = true;
+					break;
+				}
+
+				if (!found)
+				{
 					System::Random^b = gcnew System::Random();
 					bool has = false;
-					for each(Trajet^ t in listeTrajet) {
+					/*for each(Trajet^ t in listeTrajet) {
 						if (t->getIdDepart() == stat->getId() && t->getIdArrv() == id_dest) { has = true; }
-					}
+					}*/
+
 					if (!has)
 					{
 						int ofer = getRandProba(0, stat->getAvailableBikes());
-						listeTrajet->Add(gcnew Trajet(stat->getId(), id_dest, b->Next(12), ofer));
+						//listeTrajet->Add(gcnew Trajet(stat->getId(), id_dest, b->Next(12), ofer));
+						listeTrajet[stat->getId()]->Add(gcnew Trajet(stat->getId(), id_dest,b->Next(12),ofer));
 						stat->lessBikes(ofer);
 					}
 				}
@@ -83,8 +94,10 @@ void Project2::ProblemVLS::calcul_couts(int s_id, int id_arv)
 ProblemVLS::ProblemVLS()
 {
 	listeStation = gcnew System::Collections::ArrayList();
-	listeTrajet = gcnew System::Collections::ArrayList(); 
+	listeTrajet = gcnew System::Collections::Generic::Dictionary<int, System::Collections::ArrayList^ >();
 	readTextBike(System::IO::Directory::GetCurrentDirectory() + "\\stations_velib_paris.txt", listeStation);
+	for each(Station^ stat in listeStation)
+		listeTrajet->Add(stat->getId(), gcnew System::Collections::ArrayList());
 }
 
 void Project2::ProblemVLS::randomizeStations()
@@ -154,14 +167,17 @@ double ProblemVLS::getValue(System::Collections::ArrayList^ solution) {
 	{
 		int id_dest_tmp = 0;
 		//v_i * I-_i_j_s en recuperant les trajets de destinations
-		for each(Trajet^ trj in listeTrajet)
+		/*for each(Trajet^ trj in listeTrajet)
 		{
 			if (trj->getIdDepart() == stat->getId() && trj->getIdArrv() > id_dest_tmp)
 			{
 				id_dest_tmp = trj->getIdArrv();
 				cout_manque += stat->getLessCost()*trj->getManque();
 			}
-		}
+		}*/
+		System::Collections::ArrayList ^ al = getTrajetsFromStation(stat->getId());
+		for each(Trajet^ trj in al)
+			cout_manque += stat->getLessCost()*trj->getManque();
 	}
 	value += cout_manque;
 
@@ -188,18 +204,49 @@ Station^ Project2::ProblemVLS::getStation(int s_id)
 	return nullptr;
 }
 
-System::Collections::ArrayList ^ Project2::ProblemVLS::getTrajets()
+System::Collections::Generic::Dictionary<int, System::Collections::ArrayList^> ^ Project2::ProblemVLS::getTrajets()
 {
 	return listeTrajet;
 }
 
+System::Collections::ArrayList ^ Project2::ProblemVLS::getTrajetsList()
+{
+	System::Collections::ArrayList ^ allTrajets = gcnew System::Collections::ArrayList();
+	for each(Station ^ stat in listeStation)
+	{
+		System::Collections::ArrayList ^ al = getTrajetsFromStation(stat->getId());
+		if (al != nullptr)
+		{
+			for each(Trajet^ trj in al)
+				allTrajets->Add(trj);
+		}
+	}
+	return allTrajets;
+}
+
+System::Collections::ArrayList ^ Project2::ProblemVLS::getTrajetsFromStation(int id_depart)
+{
+	if (listeTrajet->ContainsKey(id_depart))
+		return listeTrajet[id_depart];
+	return nullptr;
+}
+
 Trajet ^ Project2::ProblemVLS::getTrajet(int id_dep, int id_arv)
 {
-	Trajet^ trj = gcnew Trajet;
-	for each(Trajet^ trajet in listeTrajet)
+	/*for each(Trajet^ trajet in listeTrajet)
 	{
 		if (trajet->getIdDepart() == id_dep && trajet->getIdArrv() == id_arv)
 			return trj = trajet;
+	}*/
+
+	System::Collections::ArrayList^ al = getTrajetsFromStation(id_dep);
+	if (al != nullptr)
+	{	
+		for each(Trajet^ trajet in al)
+		{
+			if (trajet->getIdArrv() == id_arv)
+				return trajet;
+		}
 	}
 	return nullptr;
 }
@@ -207,20 +254,33 @@ Trajet ^ Project2::ProblemVLS::getTrajet(int id_dep, int id_arv)
 System::Collections::ArrayList^ ProblemVLS::getTrajetsFrom(Station^ s) {
 
 	System::Collections::ArrayList^ a = gcnew System::Collections::ArrayList();
-	for each(Trajet^ t in listeTrajet) {
+
+	/*for each(Trajet^ t in listeTrajet) {
 		if (t->getIdDepart() == s->getId()) {
 			a->Add(t);
 		}
-	}
-	return a;
+	}*/
+	return getTrajetsFromStation(s->getId());
 }
 
 System::Collections::ArrayList^ ProblemVLS::getTrajetsTo(Station^ s) {
 
 	System::Collections::ArrayList^ a = gcnew System::Collections::ArrayList();
-	for each(Trajet^ t in listeTrajet) {
+	/*for each(Trajet^ t in listeTrajet) {
 		if (t->getIdArrv() == s->getId()) {
 			a->Add(t);
+		}
+	}*/
+	for each(Station ^ stat in listeStation)
+	{
+		System::Collections::ArrayList^ al = getTrajetsFromStation(stat->getId());
+		if ( (stat->getId() != s->getId()) && al != nullptr)
+		{
+			for each(Trajet ^ t in al)
+			{
+				if (t->getIdArrv() == s->getId())
+					a->Add(t);
+			}
 		}
 	}
 	return a;

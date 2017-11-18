@@ -590,7 +590,8 @@ namespace Project2 {
 			{
 				this->groupBox1->Size = System::Drawing::Size(170, 455);
 				this->problem->generateDemandes(false);
-				for each(Trajet ^tej in this->problem->getTrajets())
+				System::Collections::ArrayList^ listTrajets = this->problem->getTrajetsList();
+				for each(Trajet ^tej in listTrajets)
 					this->listBox6->Items->Add(tej);
 			}
 			else
@@ -601,7 +602,8 @@ namespace Project2 {
 		}
 		System::Void FilterAsk(System::Object^  sender, System::EventArgs^  e)
 		{
-			for each(Trajet ^traj in problem->getTrajets())
+			System::Collections::ArrayList^ listTrajets = this->problem->getTrajetsList();
+			for each(Trajet ^traj in listTrajets)
 			{
 				if (this->comboBox2->SelectedItem != NULL && traj->getIdDepart() == (int)comboBox2->SelectedItem)
 					listBox1->Items->Add(traj);

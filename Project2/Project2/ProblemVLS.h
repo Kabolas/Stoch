@@ -15,7 +15,9 @@ namespace Project2 {
 		double getValue(System::Collections::ArrayList^ solution);
 		System::Collections::ArrayList^ getStations();
 		Station^ getStation(int s_id);
-		System::Collections::ArrayList^ getTrajets();
+		System::Collections::Generic::Dictionary<int,System::Collections::ArrayList^>^ getTrajets();
+		System::Collections::ArrayList ^ getTrajetsList();
+		System::Collections::ArrayList ^ getTrajetsFromStation(int id_depart);
 		Trajet^ getTrajet(int id_dep,int id_arv);
 		void randomizeStations();
 		void printStation(int s_id);
@@ -25,7 +27,8 @@ namespace Project2 {
 		
 	protected:
 		System::Collections::ArrayList^ listeStation;
-		System::Collections::ArrayList^ listeTrajet;
+		//System::Collections::ArrayList^ listeTrajet;
+		System::Collections::Generic::Dictionary<int, System::Collections::ArrayList^ >^ listeTrajet;
 		double getRandProba();
 		int getRandProba(int  min, int max);
 

@@ -44,6 +44,7 @@ void Project2::readTextBike(String^ filePath, Collections::ArrayList^ stList)
 		{
 			//buf_last_update = int::Parse(str->Replace(",", "")->Split(':')[1]);
 			stList->Add(gcnew Station(id_count++, buf_c_id, buf_contract_name, buf_name, buf_address, buf_lat, buf_lng, buf_banking, buf_bonus, buf_status, buf_bike_stands, buf_available_bike_stands, buf_available_bikes, 0));
+			
 		}
 
 	}
