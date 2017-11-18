@@ -6,7 +6,7 @@ using namespace Project2;
 
 void Project2::readTextBike(String^ filePath, Collections::ArrayList^ stList)
 {
-		
+
 	String^ buf_name = "", ^buf_address = "", ^buf_contract_name = "";
 	int buf_c_id = 0, buf_bike_stands = 0, buf_available_bike_stands = 0, buf_available_bikes = 0;
 	bool buf_banking = false, buf_bonus = false, buf_status = false;
@@ -47,4 +47,40 @@ void Project2::readTextBike(String^ filePath, Collections::ArrayList^ stList)
 		}
 
 	}
+}
+
+String ^ Project2::genererInfoMarqueur(Station ^ stattion)
+{
+	String^ info = "";
+	info += "Capacité : "+ stattion->getBikeStands();
+	info += "\\nVélos disponibles : "+ stattion->getAvailableBikes();
+	info += "\\nSupports de vélos disponibles : "+ stattion->getAvailableBikeStands();
+	info += "\\nCoût c : "+ stattion->getCost();
+	info += "\\nCoût v : "+ stattion->getLessCost();
+	info += "\\nCoût w : "+ stattion->getOverCost();
+	//info += genererInfoLigne("Capacité k", stationVelo.getK());
+	//info += genererInfoLigne("x", stattion->getX());
+	info += "";
+	return info;
+}
+
+String^ Project2::genererInfoLigne(String^ etiquette, int valeur) {
+	return "<b>" + etiquette + " : </b>" + valeur + "<br/>";
+}
+
+String ^ Project2::genererPositionsDemandesStochastiques(Station ^ stat, System::Collections::ArrayList ^ trajs, System::Collections::ArrayList ^stats)
+{
+	String^ ret = "[";
+	for each (Trajet ^traj in trajs)
+	{
+		if (traj->getIdDepart() == stat->getId()) {
+			for each(Station ^ s in stats) {
+				if (traj->getIdArrv() == s->getId()){
+					if (ret == "[") ret +="\""+ s->getNom()+"\"";
+					else ret += "," + "\"" + s->getNom() + "\"";
+				}
+			}
+		}
+	}
+	return ret + "]";
 }

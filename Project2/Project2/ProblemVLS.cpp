@@ -50,8 +50,12 @@ void ProblemVLS::generateDemandes(bool stochastique)
 					for each(Trajet^ t in listeTrajet) {
 						if (t->getIdDepart() == stat->getId() && t->getIdArrv() == id_dest) { has = true; }
 					}
-					if(!has)
-						listeTrajet->Add(gcnew Trajet(stat->getId(), id_dest, b->Next(12), getRandProba(1, stat->getAvailableBikes())));
+					if (!has)
+					{
+						int ofer = getRandProba(0, stat->getAvailableBikes());
+						listeTrajet->Add(gcnew Trajet(stat->getId(), id_dest, b->Next(12), ofer));
+						stat->lessBikes(ofer);
+					}
 				}
 			}
 		}

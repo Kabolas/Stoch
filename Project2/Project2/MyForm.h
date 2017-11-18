@@ -39,6 +39,7 @@ namespace Project2 {
 		}
 	private: ProblemVLS^ problem;
 	private: EO::WinForm::WebControl^  webBrowser1;
+	private: String^ loadingHtml;
 	private: System::Windows::Forms::ComboBox^  comboBox1;
 	private: System::Windows::Forms::GroupBox^  groupBox1;
 
@@ -76,6 +77,8 @@ namespace Project2 {
 	private: System::Windows::Forms::TextBox^  textBox6;
 	private: System::Windows::Forms::Button^  button12;
 	private: System::Windows::Forms::ListBox^  listBox6;
+	private: System::Windows::Forms::TextBox^  textBox7;
+	private: System::Windows::Forms::Label^  label7;
 	protected:
 
 	protected:
@@ -93,7 +96,6 @@ namespace Project2 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->webBrowser1 = (gcnew EO::WinForm::WebControl());
 			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
@@ -129,20 +131,12 @@ namespace Project2 {
 			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->button10 = (gcnew System::Windows::Forms::Button());
+			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->webBrowser1 = (gcnew EO::WinForm::WebControl());
 			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
 			this->SuspendLayout();
-			// 
-			// webBrowser1
-			// 
-			this->webBrowser1->BackColor = System::Drawing::Color::White;
-			this->webBrowser1->Location = System::Drawing::Point(183, 12);
-			this->webBrowser1->MinimumSize = System::Drawing::Size(20, 20);
-			this->webBrowser1->Name = L"webBrowser1";
-			this->webBrowser1->Size = System::Drawing::Size(492, 367);
-			this->webBrowser1->TabIndex = 1;
-			this->webBrowser1->WebView = gcnew EO::WebBrowser::WebView();
-			this->webBrowser1->WebView->Url = System::IO::Directory::GetCurrentDirectory() + "/Connector.html";
 			// 
 			// comboBox1
 			// 
@@ -451,7 +445,7 @@ namespace Project2 {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(116, 497);
+			this->button1->Location = System::Drawing::Point(710, 529);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 6;
@@ -461,25 +455,25 @@ namespace Project2 {
 			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(13, 500);
+			this->textBox1->Location = System::Drawing::Point(13, 529);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(97, 20);
 			this->textBox1->TabIndex = 7;
-			this->textBox1->Text = "1000";
+			this->textBox1->Text = L"1000";
 			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::setIter);
 			// 
 			// richTextBox1
 			// 
-			this->richTextBox1->Location = System::Drawing::Point(183, 385);
+			this->richTextBox1->Location = System::Drawing::Point(183, 417);
 			this->richTextBox1->Name = L"richTextBox1";
-			this->richTextBox1->Size = System::Drawing::Size(492, 99);
+			this->richTextBox1->Size = System::Drawing::Size(602, 99);
 			this->richTextBox1->TabIndex = 4;
 			this->richTextBox1->Text = L"";
 			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(13, 486);
+			this->label1->Location = System::Drawing::Point(13, 515);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(97, 13);
 			this->label1->TabIndex = 8;
@@ -493,13 +487,44 @@ namespace Project2 {
 			this->button10->TabIndex = 9;
 			this->button10->Text = L"Randomiser";
 			this->button10->UseVisualStyleBackColor = true;
+			this->button10->Enabled = false;
 			this->button10->Click += gcnew System::EventHandler(this, &MyForm::Rand_Click);
+			// 
+			// textBox7
+			// 
+			this->textBox7->Location = System::Drawing::Point(138, 529);
+			this->textBox7->Name = L"textBox7";
+			this->textBox7->Size = System::Drawing::Size(100, 20);
+			this->textBox7->TabIndex = 10;
+			this->textBox7->TextChanged += gcnew System::EventHandler(this, &MyForm::setStatRec);
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Location = System::Drawing::Point(136, 515);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(196, 13);
+			this->label7->TabIndex = 11;
+			this->label7->Text = L"Nombre de Station à prendre en compte";
+			// 
+			// webBrowser1
+			// 
+			this->webBrowser1->BackColor = System::Drawing::Color::White;
+			this->webBrowser1->Location = System::Drawing::Point(183, 7);
+			this->webBrowser1->MinimumSize = System::Drawing::Size(20, 20);
+			this->webBrowser1->Name = L"webBrowser1";
+			this->webBrowser1->Size = System::Drawing::Size(602, 404);
+			this->webBrowser1->TabIndex = 12;
+			this->webBrowser1->WebView = gcnew EO::WebBrowser::WebView();
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(681, 523);
+			this->ClientSize = System::Drawing::Size(797, 561);
+			this->Controls->Add(this->webBrowser1);
+			this->Controls->Add(this->label7);
+			this->Controls->Add(this->textBox7);
 			this->Controls->Add(this->button10);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->textBox1);
@@ -508,18 +533,26 @@ namespace Project2 {
 			this->Controls->Add(this->richTextBox1);
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->comboBox1);
-			this->Controls->Add(this->webBrowser1);
 			this->Name = L"MyForm";
 			this->Text = L"Projet Stochastique";
 			this->problem = gcnew ProblemVLS();
+			this->loadingHtml = System::IO::File::ReadAllText(System::IO::Directory::GetCurrentDirectory() + "/Test.html");
 			for each(Station^ stat in problem->getStations())
 			{
+
 				this->listBox2->Items->Add(stat->getCost());
 				this->listBox3->Items->Add(stat->getLessCost());
 				this->listBox4->Items->Add(stat->getOverCost());
 				this->listBox5->Items->Add(stat->getBikeStands());
 				this->comboBox2->Items->Add(stat->getId());
+				String ^aj = "['" + stat->getNom()->Replace("'", " ") + "\\n" + genererInfoMarqueur(stat)
+					+ "', " + ("" + stat->getLat())->Replace(",", ".") + "," + ("" + stat->getLng())->Replace(",", ".")
+					+ "," + stat->getId() + "]";
+				if (stat->getId() != 0) aj += ",";
+				this->loadingHtml = this->loadingHtml->Insert(this->loadingHtml->IndexOf("var locations = [") + 17, aj);
 			}
+			//System::IO::File::WriteAllText(System::IO::Directory::GetCurrentDirectory() + "/Test2.html", this->loadingHtml);
+			this->webBrowser1->WebView->LoadHtml(this->loadingHtml);
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
 			this->groupBox2->ResumeLayout(false);
@@ -542,7 +575,7 @@ namespace Project2 {
 			this->textBox5->Text = "" + listBox5->SelectedItem;
 		}
 		System::Void Selectionlist6(System::Object^  sender, System::EventArgs^  e) {
-			this->textBox6->Text = "" + listBox6->SelectedItem;
+			this->textBox6->Text = "" + ((Trajet^)listBox6->SelectedItem)->getDemande();
 		}
 		System::Void ModeSwitch(System::Object^  sender, System::EventArgs^  e)
 		{
@@ -552,6 +585,7 @@ namespace Project2 {
 			this->button1->Enabled = !this->comboBox1->SelectedItem->Equals("Mode");
 			this->textBox1->Enabled = !this->comboBox1->SelectedItem->Equals("Mode");
 			this->richTextBox1->Enabled = !this->comboBox1->SelectedItem->Equals("Mode");
+			this->button10->Enabled = !this->comboBox1->SelectedItem->Equals("Mode");
 			if ((String^)this->comboBox1->SelectedItem == "Déterministe")
 			{
 				this->groupBox1->Size = System::Drawing::Size(170, 455);
@@ -718,16 +752,84 @@ namespace Project2 {
 			this->listBox2->Items->Clear();
 			this->listBox3->Items->Clear();
 			this->listBox4->Items->Clear();
+			this->loadingHtml = System::IO::File::ReadAllText(System::IO::Directory::GetCurrentDirectory() + "/Test.html");
+			int num = 0;
+			if (int::TryParse(this->textBox7->Text, num)) {}
+			else num = problem->getStations()->Count;
 			for each(Station^ stat in problem->getStations())
 			{
-				this->listBox2->Items->Add(stat->getCost());
-				this->listBox3->Items->Add(stat->getLessCost());
-				this->listBox4->Items->Add(stat->getOverCost());
+				if (stat->getId() <= num) {
+					this->listBox2->Items->Add(stat->getCost());
+					this->listBox3->Items->Add(stat->getLessCost());
+					this->listBox4->Items->Add(stat->getOverCost());
+					String ^aj = "['" + stat->getNom()->Replace("'", " ") + "\\n" + genererInfoMarqueur(stat)
+						+ "', " + ("" + stat->getLat())->Replace(",", ".") + "," + ("" + stat->getLng())->Replace(",", ".")
+						+ "," + stat->getId() + "]";
+					if (stat->getId() != 0) aj += ",";
+					this->loadingHtml = this->loadingHtml->Insert(this->loadingHtml->IndexOf("var locations = [") + 17, aj);
+				}
 			}
+			//System::IO::File::WriteAllText(System::IO::Directory::GetCurrentDirectory() + "/Test2.html", this->loadingHtml);
+			this->webBrowser1->WebView->LoadHtml(this->loadingHtml);
 		}
 		System::Void setIter(System::Object^  sender, System::EventArgs^  e) {
 			if (int::Parse(this->textBox1->Text) < 1000)
 				this->textBox1->Text = "1000";
+		}
+		System::Void setStatRec(System::Object^ sender, System::EventArgs^ e) {
+			int  num, cmp = 0;
+			if(textBox7->Text !=""){
+				if (int::TryParse(this->textBox7->Text, num)) {
+					this->loadingHtml = System::IO::File::ReadAllText(System::IO::Directory::GetCurrentDirectory() + "/Test.html");
+					this->listBox2->Items->Clear();
+					this->listBox3->Items->Clear();
+					this->listBox4->Items->Clear();
+					this->comboBox2->Items->Clear();
+					this->listBox5->Items->Clear();
+					for each(Station^ stat in problem->getStations())
+					{
+						if(stat->getId()<= num){
+						this->listBox2->Items->Add(stat->getCost());
+						this->listBox3->Items->Add(stat->getLessCost());
+						this->listBox4->Items->Add(stat->getOverCost());
+						this->listBox5->Items->Add(stat->getBikeStands());
+						this->comboBox2->Items->Add(stat->getId());
+						String ^aj = "['" + stat->getNom()->Replace("'", " ") + "\\n" + genererInfoMarqueur(stat)
+							+ "', " + ("" + stat->getLat())->Replace(",", ".") + "," + ("" + stat->getLng())->Replace(",", ".")
+							+ "," + stat->getId() + "]";
+						if (stat->getId() != 0) aj += ",";
+						this->loadingHtml = this->loadingHtml->Insert(this->loadingHtml->IndexOf("var locations = [") + 17, aj);
+						}
+						else break;
+					}
+					//System::IO::File::WriteAllText(System::IO::Directory::GetCurrentDirectory() + "/Test2.html", this->loadingHtml);
+					this->webBrowser1->WebView->LoadHtml(this->loadingHtml);
+				}
+			}
+			else{
+				this->loadingHtml = System::IO::File::ReadAllText(System::IO::Directory::GetCurrentDirectory() + "/Test.html");
+				this->listBox2->Items->Clear();
+				this->listBox3->Items->Clear();
+				this->listBox4->Items->Clear();
+				this->comboBox2->Items->Clear();
+				this->listBox5->Items->Clear(); 
+				for each(Station^ stat in problem->getStations())
+				{
+
+					this->listBox2->Items->Add(stat->getCost());
+					this->listBox3->Items->Add(stat->getLessCost());
+					this->listBox4->Items->Add(stat->getOverCost());
+					this->listBox5->Items->Add(stat->getBikeStands());
+					this->comboBox2->Items->Add(stat->getId());
+					String ^aj = "['" + stat->getNom()->Replace("'", " ") + "\\n" + genererInfoMarqueur(stat)
+						+ "', " + ("" + stat->getLat())->Replace(",", ".") + "," + ("" + stat->getLng())->Replace(",", ".")
+						+ "," + stat->getId() + "]";
+					if (stat->getId() != 0) aj += ",";
+					this->loadingHtml = this->loadingHtml->Insert(this->loadingHtml->IndexOf("var locations = [") + 17, aj);
+				}
+				//System::IO::File::WriteAllText(System::IO::Directory::GetCurrentDirectory() + "/Test2.html", this->loadingHtml);
+				this->webBrowser1->WebView->LoadHtml(this->loadingHtml);
+			}
 		}
 	};
 }

@@ -18,6 +18,21 @@ int const Station::getAvailableBikes()
 	return available_bikes;
 }
 
+String ^ Project2::Station::getNom()
+{
+	return name;
+}
+
+double Project2::Station::getLng()
+{
+	return lng;
+}
+
+double Project2::Station::getLat()
+{
+	return lat;
+}
+
 int const Station::getAvailableBikeStands()
 {
 	return available_bike_stands;
@@ -36,6 +51,11 @@ void Project2::Station::setCost(int c) { cost = c; }
 int Project2::Station::getLessCost() { return lesscost; }
 
 void Project2::Station::setLessCost(int lc) { lesscost = lc; }
+
+void Project2::Station::lessBikes(int bikes)
+{
+	available_bikes -= bikes;
+}
 
 int Project2::Station::getOverCost() { return overcost; }
 
