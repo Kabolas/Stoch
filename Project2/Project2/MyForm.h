@@ -634,7 +634,7 @@ namespace Project2 {
 				int num = 0;
 				int::TryParse(textBox7->Text, num);
 				RecuitStocha^ recuit = gcnew RecuitStocha(TEMPERATURE_INITIALE, int::Parse(this->textBox1->Text), NB_PALLIER, problem, PENALITE, num, NB_SCENARIO);
-				recuit->algo();
+				recuit->algo(num);
 				this->richTextBox1->Text += recuit->afficher();
 			}
 			this->groupBox1->Enabled = true;

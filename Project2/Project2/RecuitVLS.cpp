@@ -71,10 +71,10 @@ double RecuitVLS::getValueWithMalus(System::Collections::ArrayList^ solution, Sy
 	double value = problem->getValue(solution);
 	if (kMalus > 0 && solToCompare != nullptr) {
 		for (int i = 0; i < solution->Count; i++) {
-			if ((double)solution[i] >(double)solToCompare[i])
-				value = value + kMalus * ((double)solution[i] - (double)solToCompare[i]);
+			if ((int)solution[i] >(int)solToCompare[i])
+				value = value + kMalus * ((int)solution[i] - (int)solToCompare[i]);
 			else
-				value = value + kMalus * ((double)solToCompare[i] - (double)solution[i]);
+				value = value + kMalus * ((int)solToCompare[i] - (int)solution[i]);
 		}
 	}
 	return value;

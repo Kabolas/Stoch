@@ -5,7 +5,8 @@ using namespace Project2;
 Project2::RecuitStocha::RecuitStocha(double tInitiale, int nIter, int pallier, ProblemVLS^ prob, int pena, int nbStations, int nbScenarios)
 {
 	penalite = pena;
-	System::Collections::ArrayList^ scenars;
+	System::Collections::ArrayList^ scenars = gcnew System::Collections::ArrayList();
+	scenarios = gcnew System::Collections::ArrayList();
 	for (int i = 0; i < nbScenarios; i++) {
 		scenars->Add(gcnew ScenarioVLS(nbStations));
 		((ScenarioVLS^)scenars[i])->generateAllTrajets(prob->getStations(), nbStations);
@@ -19,12 +20,12 @@ Project2::RecuitStocha::~RecuitStocha()
 {
 }
 
-void Project2::RecuitStocha::algo()
+void Project2::RecuitStocha::algo(int nbStations)
 {
-	System::Collections::ArrayList^ lastSolution;
-	System::Collections::ArrayList^ sumSolution;
+	System::Collections::ArrayList^ lastSolution = gcnew System::Collections::ArrayList();
+	System::Collections::ArrayList^ sumSolution = gcnew System::Collections::ArrayList();
 	int nbScenarios = scenarios->Count;
-	for (int i = 0; i < ((RecuitVLS^)scenarios[i])->getProb()->getStations()->Count; i++) {
+	for (int i = 0; i < nbStations; i++) {
 		sumSolution->Add((int)0);
 	}
 	double lastValue;
@@ -38,7 +39,7 @@ void Project2::RecuitStocha::algo()
 		sumSolution = addVectors(sumSolution, lastSolution);
 	}
 
-	System::Collections::ArrayList^ moySolution;
+	System::Collections::ArrayList^ moySolution = gcnew System::Collections::ArrayList();
 	for each(int sol in sumSolution) {
 		moySolution->Add(sol / nbScenarios);
 	}
@@ -58,6 +59,7 @@ void Project2::RecuitStocha::algo()
 				lastValue = scenar->getMinValue();
 				sumSolution = addVectors(sumSolution, lastSolution);
 			}
+			moySolution->Clear();
 			for each(int sol in sumSolution) {
 				moySolution->Add(sol / nbScenarios);
 			}
@@ -93,7 +95,7 @@ System::Collections::ArrayList^ Project2::RecuitStocha::addVectors(System::Colle
 
 	if (v1->Count != v2->Count)
 		return nullptr;
-	System::Collections::ArrayList^ v3;
+	System::Collections::ArrayList^ v3 = gcnew System::Collections::ArrayList();
 	for(int i = 0; i < v1->Count; i++) {
 		v3->Add((int)v1[i] + (int)v2[i]);
 	}

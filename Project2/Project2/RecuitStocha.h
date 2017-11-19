@@ -4,14 +4,14 @@
 #include "ScenarioVLS.h"
 
 #define PENALITE 400
-#define NB_SCENARIO 20
+#define NB_SCENARIO 1
 namespace Project2 {
 	public ref class RecuitStocha
 	{
 	public:
 		RecuitStocha(double tInitiale, int nIter, int pallier, ProblemVLS^ prob, int pena, int nbStations, int nbScenarios);
 		~RecuitStocha();
-		void algo();
+		void algo(int nbStations);
 		double getFinalValue();
 		System::Collections::ArrayList ^ getFinalSolutions();
 		bool solutionsAreEquals(System::Collections::ArrayList ^ sol1, System::Collections::ArrayList ^ sol2);

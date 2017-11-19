@@ -153,6 +153,7 @@
     <ClCompile Include="Recuit.cpp" />
     <ClCompile Include="RecuitStocha.cpp" />
     <ClCompile Include="RecuitVLS.cpp" />
+    <ClCompile Include="SaaVLS.cpp" />
     <ClCompile Include="ScenarioVLS.cpp" />
     <ClCompile Include="Station.cpp" />
     <ClCompile Include="Trajet.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Recuit.h" />
     <ClInclude Include="RecuitStocha.h" />
     <ClInclude Include="RecuitVLS.h" />
+    <ClInclude Include="SaaVLS.h" />
     <ClInclude Include="ScenarioVLS.h" />
     <ClInclude Include="Trajet.h" />
     <ClInclude Include="ProblemVLS.h" />

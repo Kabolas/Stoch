@@ -5,12 +5,14 @@ using namespace Project2;
 
 Project2::ScenarioVLS::ScenarioVLS()
 {
+	listeTrajetScenario = gcnew System::Collections::Generic::Dictionary<int, System::Collections::ArrayList^>();
 	for (int i = 0; i < 100;++i)
 		listeTrajetScenario->Add(i, gcnew System::Collections::ArrayList());
 }
 
 Project2::ScenarioVLS::ScenarioVLS(int nb_stations)
 {
+	listeTrajetScenario = gcnew System::Collections::Generic::Dictionary<int, System::Collections::ArrayList^>();
 	for (int i = 0; i < nb_stations;++i)
 		listeTrajetScenario->Add(i, gcnew System::Collections::ArrayList());
 }

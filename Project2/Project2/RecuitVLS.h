@@ -2,7 +2,7 @@
 #include "Recuit.h"
 #include "ProblemVLS.h"
 
-#define DIMINUTION_TEMPERATURE 0.95
+#define DIMINUTION_TEMPERATURE 0.7
 namespace Project2 {
 	public ref class RecuitVLS : public Recuit
 	{
