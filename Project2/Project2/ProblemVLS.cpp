@@ -285,3 +285,9 @@ System::Collections::ArrayList^ ProblemVLS::getTrajetsTo(Station^ s) {
 	}
 	return a;
 }
+
+void Project2::ProblemVLS::setTrajets(System::Collections::Generic::Dictionary<int, System::Collections::ArrayList^>^ newTrajets)
+{
+	if(listeTrajet != nullptr)
+		listeTrajet = newTrajets;
+}

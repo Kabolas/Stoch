@@ -24,6 +24,7 @@ namespace Project2 {
 		void printAllStations();
 		System::Collections::ArrayList^ getTrajetsFrom(Station^ s);
 		System::Collections::ArrayList^ getTrajetsTo(Station^ s);
+		void setTrajets(System::Collections::Generic::Dictionary<int, System::Collections::ArrayList^ >^ newTrajets);
 		
 	protected:
 		System::Collections::ArrayList^ listeStation;

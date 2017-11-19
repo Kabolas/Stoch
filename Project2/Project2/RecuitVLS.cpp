@@ -1,5 +1,6 @@
 #include "RecuitVLS.h"
 #include "Station.h"
+#include "math.h"
 
 using namespace Project2;
 RecuitVLS::RecuitVLS(double tInitiale, int nIter, int pallier, ProblemVLS^ prob)
@@ -10,6 +11,17 @@ RecuitVLS::RecuitVLS(double tInitiale, int nIter, int pallier, ProblemVLS^ prob)
 	nIteration = nIter;
 	nPallier = pallier;
 	coefDiminutionTemp = DIMINUTION_TEMPERATURE;
+}
+
+Project2::RecuitVLS::RecuitVLS(double tInitiale, int nIter, int pallier, ProblemVLS ^ prob, System::Collections::Generic::Dictionary<int, System::Collections::ArrayList^>^ listTrajets)
+{
+	tempInitiale = tInitiale;
+	problem = prob;
+	temp = tempInitiale;
+	nIteration = nIter;
+	nPallier = pallier;
+	coefDiminutionTemp = DIMINUTION_TEMPERATURE;
+	problem->setTrajets(listTrajets);
 }
 
 
@@ -53,7 +65,51 @@ System::Collections::ArrayList^ RecuitVLS::generateFirstSolution() {
 
 double RecuitVLS::getValue(System::Collections::ArrayList^ solution) { return problem->getValue(solution); }
 
+double RecuitVLS::getValueWithMalus(System::Collections::ArrayList^ solution, System::Collections::ArrayList^ solToCompare, int kMalus) {
+	double value = problem->getValue(solution);
+	if (kMalus > 0 && solToCompare != nullptr) {
+		for (int i = 0; i < solution->Count; i++) {
+			if ((double)solution[i] > (double)solToCompare[i])
+				value = value + kMalus * ((double)solution[i] - (double)solToCompare[i]);
+			else
+				value = value + kMalus * ((double)solToCompare[i] - (double)solution[i]);
+		}
+	}
+}
+
 double RecuitVLS::changeTemp() { return temp * coefDiminutionTemp; }
+
+void Project2::RecuitVLS::algoWithMalus(System::Collections::ArrayList^ solToCompare, int kMalus)
+{
+	System::Collections::ArrayList^ currentSolution = generateFirstSolution();
+	bestSolution = currentSolution;
+	minValue = getValueWithMalus(bestSolution, solToCompare, kMalus);
+	int i = 0;
+	while (i < nIteration) {
+		do {
+			System::Collections::ArrayList^ newSol = getVicinity(currentSolution);
+			double newValue = getValueWithMalus(newSol, solToCompare, kMalus);
+			double delta = newValue - getValueWithMalus(currentSolution, solToCompare, kMalus);
+			if (delta < 0) {
+				if (newValue < minValue) {
+					bestSolution = newSol;
+					minValue = newValue;
+				}
+				currentSolution = newSol;
+			}
+
+			else {
+				double p = getRandProba(0, 1);
+
+				if (p <= exp(-delta / temp)) {
+					currentSolution = newSol;
+				}
+			}
+			i++;
+		} while (i%nPallier != 0);
+		temp = changeTemp();
+	}
+}
 
 ProblemVLS ^ RecuitVLS::getProb() { return problem; }
 
