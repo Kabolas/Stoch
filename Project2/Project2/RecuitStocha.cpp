@@ -1,13 +1,16 @@
 #include "RecuitStocha.h"
 
 
-
-
-Project2::RecuitStocha::RecuitStocha(double tInitiale, int nIter, int pallier, ProblemVLS^ prob, System::Collections::ArrayList ^ scenars, int pena, int nbStations)
+using namespace Project2;
+Project2::RecuitStocha::RecuitStocha(double tInitiale, int nIter, int pallier, ProblemVLS^ prob, int pena, int nbStations, int nbScenarios)
 {
 	penalite = pena;
-	scenarios = scenars;
-	for each(ScenarioVLS^ scenar in scenarios) {
+	System::Collections::ArrayList^ scenars;
+	for (int i = 0; i < nbScenarios; i++) {
+		scenars->Add(gcnew ScenarioVLS(nbStations));
+		((ScenarioVLS^)scenars[i])->generateAllTrajets(prob->getStations(), nbStations);
+	}
+	for each(ScenarioVLS^ scenar in scenars) {
 		scenarios->Add(gcnew RecuitVLS(tInitiale, nIter, pallier, prob, scenar->getListeTrajetsSce(), nbStations));
 	}
 }
@@ -95,4 +98,13 @@ System::Collections::ArrayList^ Project2::RecuitStocha::addVectors(System::Colle
 		v3->Add((int)v1[i] + (int)v2[i]);
 	}
 	return v3;
+}
+
+String^ Project2::RecuitStocha::afficher()
+{
+	String^ s = "Solution :\n";
+	for (int i = 0; i<finalSolutions->Count; i++) {
+		s += "Station " + i + " : " + finalSolutions[i] + " velos.\n";
+	}
+	return s;
 }

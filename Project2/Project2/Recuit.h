@@ -1,7 +1,7 @@
 #pragma once
 
-#define TEMPERATURE_INITIALE 1000;
-#define NB_PALLIER 12;
+#define TEMPERATURE_INITIALE 1000
+#define NB_PALLIER 12
 namespace Project2 {
 	public ref class Recuit
 	{

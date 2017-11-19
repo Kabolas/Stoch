@@ -3,6 +3,7 @@
 #include "Parsing.h"
 #include "Station.h"
 #include "RecuitVLS.h"
+#include "RecuitStocha.h"
 namespace Project2 {
 	using namespace EO;
 	using namespace System;
@@ -613,11 +614,40 @@ namespace Project2 {
 		}
 		System::Void ButtonClick(System::Object^ sender, System::EventArgs^ e)
 		{
-			int num = 0;
-			int::TryParse(textBox7->Text, num);
-			RecuitVLS^ recuit = gcnew RecuitVLS(TEMPERATURE_INITIALE, int::Parse(this->textBox1->Text), 12, problem,num);
-			recuit->algo();
-			this->richTextBox1->Text += recuit->afficher();
+			this->groupBox1->Enabled = false;
+			this->richTextBox1->Enabled = false;
+			this->button10->Enabled = false;
+			this->button1->Enabled = false;
+			this->comboBox1->Enabled = false;
+			this->textBox7->Enabled = false;
+			this->textBox1->Enabled = false;
+			this->groupBox2->Enabled = false;
+			if (this->comboBox1->SelectedItem->Equals("Déterministe")) {
+				int num = 0;
+				int::TryParse(textBox7->Text, num);
+				RecuitVLS^ recuit = gcnew RecuitVLS(TEMPERATURE_INITIALE, int::Parse(this->textBox1->Text), NB_PALLIER, problem, num);
+				recuit->algo();
+				this->richTextBox1->Text += recuit->afficher();
+			}
+
+			else if (this->comboBox1->SelectedItem->Equals("Stochastique")) {
+
+				int num = 0;
+				int::TryParse(textBox7->Text, num);
+				RecuitStocha^ recuit = gcnew RecuitStocha(TEMPERATURE_INITIALE, int::Parse(this->textBox1->Text), NB_PALLIER, problem, PENALITE, num, NB_SCENARIO);
+				recuit->algo();
+				this->richTextBox1->Text += recuit->afficher();
+			}
+			this->groupBox1->Enabled = true;
+			this->richTextBox1->Enabled = true;
+			this->button10->Enabled = true;
+			this->button1->Enabled = true;
+			this->comboBox1->Enabled = true;
+			this->textBox7->Enabled = true;
+			this->textBox1->Enabled = true;
+			this->groupBox2->Enabled = true;
+
+
 		}
 
 		void PopDelBut() { this->button10->Enabled = true; this->button10->Visible = true; }
