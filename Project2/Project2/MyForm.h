@@ -629,6 +629,22 @@ namespace Project2 {
 				RecuitVLS^ recuit = gcnew RecuitVLS(TEMPERATURE_INITIALE, int::Parse(this->textBox1->Text), NB_PALLIER, problem, num);
 				recuit->algo();
 				this->richTextBox1->Text += recuit->afficher();
+
+				for each(Station^ stat in problem->getStations())
+				{
+					if (stat->getId() <= num) {
+						this->listBox2->Items->Add(stat->getCost());
+						this->listBox3->Items->Add(stat->getLessCost());
+						this->listBox4->Items->Add(stat->getOverCost());
+						String ^aj = "['" + stat->getNom()->Replace("'", " ") + "\n" + genererInfoMarqueur(stat)
+							+ "', " + ("" + stat->getLat())->Replace(",", ".") + "," + ("" + stat->getLng())->Replace(",", ".")
+							+ "," + stat->getId() + "]";
+						if (stat->getId() != 0) aj += ",";
+						this->loadingHtml = this->loadingHtml->Insert(this->loadingHtml->IndexOf("var locations = [") + 17, aj);
+					}
+				}
+				//System::IO::File::WriteAllText(System::IO::Directory::GetCurrentDirectory() + "/Test2.html", this->loadingHtml);
+				this->webBrowser1->WebView->LoadHtml(this->loadingHtml);
 			}
 			else if (this->comboBox1->SelectedItem->Equals("Stochastique")) {
 				int num = 0;
@@ -636,6 +652,22 @@ namespace Project2 {
 				RecuitStocha^ recuit = gcnew RecuitStocha(TEMPERATURE_INITIALE, int::Parse(this->textBox1->Text), NB_PALLIER, problem, PENALITE, num, NB_SCENARIO);
 				recuit->algo(num);
 				this->richTextBox1->Text += recuit->afficher();
+
+				for each(Station^ stat in problem->getStations())
+				{
+					if (stat->getId() <= num) {
+						this->listBox2->Items->Add(stat->getCost());
+						this->listBox3->Items->Add(stat->getLessCost());
+						this->listBox4->Items->Add(stat->getOverCost());
+						String ^aj = "['" + stat->getNom()->Replace("'", " ") + "\n" + genererInfoMarqueur(stat)
+							+ "', " + ("" + stat->getLat())->Replace(",", ".") + "," + ("" + stat->getLng())->Replace(",", ".")
+							+ "," + stat->getId() + "]";
+						if (stat->getId() != 0) aj += ",";
+						this->loadingHtml = this->loadingHtml->Insert(this->loadingHtml->IndexOf("var locations = [") + 17, aj);
+					}
+				}
+				//System::IO::File::WriteAllText(System::IO::Directory::GetCurrentDirectory() + "/Test2.html", this->loadingHtml);
+				this->webBrowser1->WebView->LoadHtml(this->loadingHtml);
 			}
 
 			else if (this->comboBox1->SelectedItem->Equals("Stochastique (SAA)"))
@@ -646,23 +678,25 @@ namespace Project2 {
 				saa->algo();
 				this->richTextBox1->Text += saa->afficher();
 
+				for each(Station^ stat in problem->getStations())
+				{
+					if (stat->getId() <= num) {
+						this->listBox2->Items->Add(stat->getCost());
+						this->listBox3->Items->Add(stat->getLessCost());
+						this->listBox4->Items->Add(stat->getOverCost());
+						String ^aj = "['" + stat->getNom()->Replace("'", " ") + "\n" + genererInfoMarqueur(stat)
+							+ "', " + ("" + stat->getLat())->Replace(",", ".") + "," + ("" + stat->getLng())->Replace(",", ".")
+							+ "," + stat->getId() + "]";
+						if (stat->getId() != 0) aj += ",";
+						this->loadingHtml = this->loadingHtml->Insert(this->loadingHtml->IndexOf("var locations = [") + 17, aj);
+					}
+				}
+				//System::IO::File::WriteAllText(System::IO::Directory::GetCurrentDirectory() + "/Test2.html", this->loadingHtml);
+				this->webBrowser1->WebView->LoadHtml(this->loadingHtml);
+
 			}
 
-			for each(Station^ stat in problem->getStations())
-			{
-				if (stat->getId() <= num) {
-					this->listBox2->Items->Add(stat->getCost());
-					this->listBox3->Items->Add(stat->getLessCost());
-					this->listBox4->Items->Add(stat->getOverCost());
-					String ^aj = "['" + stat->getNom()->Replace("'", " ") + "\n" + genererInfoMarqueur(stat)
-						+ "', " + ("" + stat->getLat())->Replace(",", ".") + "," + ("" + stat->getLng())->Replace(",", ".")
-						+ "," + stat->getId() + "]";
-					if (stat->getId() != 0) aj += ",";
-					this->loadingHtml = this->loadingHtml->Insert(this->loadingHtml->IndexOf("var locations = [") + 17, aj);
-				}
-			}
-			//System::IO::File::WriteAllText(System::IO::Directory::GetCurrentDirectory() + "/Test2.html", this->loadingHtml);
-			this->webBrowser1->WebView->LoadHtml(this->loadingHtml);
+			
 
 			this->groupBox1->Enabled = true;
 			this->richTextBox1->Enabled = true;
