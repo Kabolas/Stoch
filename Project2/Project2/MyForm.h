@@ -629,9 +629,8 @@ namespace Project2 {
 				recuit->algo();
 				this->richTextBox1->Text += recuit->afficher();
 			}
-
 			else if (this->comboBox1->SelectedItem->Equals("Stochastique")) {
-
+				//Commentaire pour pouvoir repush
 				int num = 0;
 				int::TryParse(textBox7->Text, num);
 				RecuitStocha^ recuit = gcnew RecuitStocha(TEMPERATURE_INITIALE, int::Parse(this->textBox1->Text), NB_PALLIER, problem, PENALITE, num, NB_SCENARIO);
