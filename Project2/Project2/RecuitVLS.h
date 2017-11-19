@@ -9,9 +9,10 @@ namespace Project2 {
 	private:
 		ProblemVLS ^problem;
 		double coefDiminutionTemp;
+		int nStations;
 
 	public:
-		RecuitVLS(double tInitiale, int nIter, int pallier, ProblemVLS^ prob);
+		RecuitVLS(double tInitiale, int nIter, int pallier, ProblemVLS^ prob,int nb_stations);
 		~RecuitVLS();
 
 		System::Collections::ArrayList^ getVicinity(System::Collections::ArrayList^ solution) override;

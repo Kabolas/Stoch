@@ -148,7 +148,9 @@ int ProblemVLS::getRandProba(int min, int max)
 double ProblemVLS::getValue(System::Collections::ArrayList^ solution) {
 
 	double value = 0;
-	for (int i = 0; i < listeStation->Count; i++) {
+	int length = solution->Count;
+	for (int i = 0; i < length; ++i)
+	{
 		value = value + ((Station^)listeStation[i])->getCost()*(int)solution[i];
 		int o = ((int)solution[i]) - ((Station^)listeStation[i])->getBikeStands();
 		for each(Trajet t in getTrajetsTo(((Station^)listeStation[i]))) {
@@ -165,6 +167,8 @@ double ProblemVLS::getValue(System::Collections::ArrayList^ solution) {
 	int cout_manque = 0;
 	for each(Station^ stat in listeStation)
 	{
+		if (stat->getId() >= length)
+			break;
 		int id_dest_tmp = 0;
 		//v_i * I-_i_j_s en recuperant les trajets de destinations
 		/*for each(Trajet^ trj in listeTrajet)
