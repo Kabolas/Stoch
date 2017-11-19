@@ -1,4 +1,5 @@
 #include "RecuitStocha.h"
+#include <iostream>
 
 
 using namespace Project2;
@@ -46,6 +47,7 @@ void Project2::RecuitStocha::algo(int nbStations)
 	
 	if (goOn) {
 		lastSolution->Clear();
+		int x = 0;
 		do {
 			goOn = false;
 			for each(int sol in sumSolution) {
@@ -63,6 +65,8 @@ void Project2::RecuitStocha::algo(int nbStations)
 			for each(int sol in sumSolution) {
 				moySolution->Add(sol / nbScenarios);
 			}
+			std::cout << "x = " << x << " " << std::endl;
+			++x;
 
 		} while (goOn);
 	}

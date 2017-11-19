@@ -4,6 +4,7 @@
 #include "Station.h"
 #include "RecuitVLS.h"
 #include "RecuitStocha.h"
+#include "SaaVLS.h"
 namespace Project2 {
 	using namespace EO;
 	using namespace System;
@@ -142,7 +143,7 @@ namespace Project2 {
 			// comboBox1
 			// 
 			this->comboBox1->FormattingEnabled = true;
-			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Mode", L"Stochastique", L"Déterministe" });
+			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"Mode", L"Stochastique", L"Déterministe" , L"Stochastique (SAA)"});
 			this->comboBox1->SelectedIndex = 0;
 			this->comboBox1->Location = System::Drawing::Point(7, 7);
 			this->comboBox1->Name = L"comboBox1";
@@ -630,13 +631,39 @@ namespace Project2 {
 				this->richTextBox1->Text += recuit->afficher();
 			}
 			else if (this->comboBox1->SelectedItem->Equals("Stochastique")) {
-				//Commentaire pour pouvoir repush
 				int num = 0;
 				int::TryParse(textBox7->Text, num);
 				RecuitStocha^ recuit = gcnew RecuitStocha(TEMPERATURE_INITIALE, int::Parse(this->textBox1->Text), NB_PALLIER, problem, PENALITE, num, NB_SCENARIO);
 				recuit->algo(num);
 				this->richTextBox1->Text += recuit->afficher();
 			}
+
+			else if (this->comboBox1->SelectedItem->Equals("Stochastique (SAA)"))
+			{
+				int num = 0;
+				int::TryParse(textBox7->Text, num);
+				SaaVLS^ saa = gcnew SaaVLS(50, NB_SCENARIO, int::Parse(this->textBox1->Text), problem, num);
+				saa->algo();
+				this->richTextBox1->Text += saa->afficher();
+
+			}
+
+			for each(Station^ stat in problem->getStations())
+			{
+				if (stat->getId() <= num) {
+					this->listBox2->Items->Add(stat->getCost());
+					this->listBox3->Items->Add(stat->getLessCost());
+					this->listBox4->Items->Add(stat->getOverCost());
+					String ^aj = "['" + stat->getNom()->Replace("'", " ") + "\n" + genererInfoMarqueur(stat)
+						+ "', " + ("" + stat->getLat())->Replace(",", ".") + "," + ("" + stat->getLng())->Replace(",", ".")
+						+ "," + stat->getId() + "]";
+					if (stat->getId() != 0) aj += ",";
+					this->loadingHtml = this->loadingHtml->Insert(this->loadingHtml->IndexOf("var locations = [") + 17, aj);
+				}
+			}
+			//System::IO::File::WriteAllText(System::IO::Directory::GetCurrentDirectory() + "/Test2.html", this->loadingHtml);
+			this->webBrowser1->WebView->LoadHtml(this->loadingHtml);
+
 			this->groupBox1->Enabled = true;
 			this->richTextBox1->Enabled = true;
 			this->button10->Enabled = true;
