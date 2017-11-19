@@ -73,6 +73,8 @@ void ProblemVLS::generateDemandes(bool stochastique)
 	}
 }
 
+
+/** Determine le cout I+ et I- pour chaque station **/
 void Project2::ProblemVLS::calcul_couts(int s_id, int id_arv)
 {
 	Station^ st = getStation(s_id);
@@ -144,11 +146,13 @@ int ProblemVLS::getRandProba(int min, int max)
 	else return re;
 }
 
-
+/** Calcule la fonction objective **/
 double ProblemVLS::getValue(System::Collections::ArrayList^ solution) {
 
 	double value = 0;
-	for (int i = 0; i < listeStation->Count; i++) {
+	int length = solution->Count;
+	for (int i = 0; i < length; ++i)
+	{
 		value = value + ((Station^)listeStation[i])->getCost()*(int)solution[i];
 		int o = ((int)solution[i]) - ((Station^)listeStation[i])->getBikeStands();
 		for each(Trajet t in getTrajetsTo(((Station^)listeStation[i]))) {
@@ -165,6 +169,8 @@ double ProblemVLS::getValue(System::Collections::ArrayList^ solution) {
 	int cout_manque = 0;
 	for each(Station^ stat in listeStation)
 	{
+		if (stat->getId() >= length)
+			break;
 		int id_dest_tmp = 0;
 		//v_i * I-_i_j_s en recuperant les trajets de destinations
 		/*for each(Trajet^ trj in listeTrajet)
@@ -189,6 +195,7 @@ System::Collections::ArrayList^ ProblemVLS::getStations()
 	return listeStation;
 }
 
+/** Renvoie une station particuliere **/
 Station^ Project2::ProblemVLS::getStation(int s_id)
 {
 	Station^ stPtr = gcnew Station;
@@ -209,6 +216,7 @@ System::Collections::Generic::Dictionary<int, System::Collections::ArrayList^> ^
 	return listeTrajet;
 }
 
+/** Renvoie tous les trajets **/
 System::Collections::ArrayList ^ Project2::ProblemVLS::getTrajetsList()
 {
 	System::Collections::ArrayList ^ allTrajets = gcnew System::Collections::ArrayList();
@@ -224,6 +232,7 @@ System::Collections::ArrayList ^ Project2::ProblemVLS::getTrajetsList()
 	return allTrajets;
 }
 
+/** Renvoie la liste de trajets selon la station de depart specifiee **/
 System::Collections::ArrayList ^ Project2::ProblemVLS::getTrajetsFromStation(int id_depart)
 {
 	if (listeTrajet->ContainsKey(id_depart))
@@ -231,6 +240,8 @@ System::Collections::ArrayList ^ Project2::ProblemVLS::getTrajetsFromStation(int
 	return nullptr;
 }
 
+
+/** Renvoie un trajet en particulier selon la station de depart et d'arrivee **/
 Trajet ^ Project2::ProblemVLS::getTrajet(int id_dep, int id_arv)
 {
 	/*for each(Trajet^ trajet in listeTrajet)
@@ -251,6 +262,7 @@ Trajet ^ Project2::ProblemVLS::getTrajet(int id_dep, int id_arv)
 	return nullptr;
 }
 
+/** Renvoie les trajets selon la station de départ **/
 System::Collections::ArrayList^ ProblemVLS::getTrajetsFrom(Station^ s) {
 
 	System::Collections::ArrayList^ a = gcnew System::Collections::ArrayList();
@@ -263,6 +275,7 @@ System::Collections::ArrayList^ ProblemVLS::getTrajetsFrom(Station^ s) {
 	return getTrajetsFromStation(s->getId());
 }
 
+/** Renvoie la liste de trajets où la station est celle d'arrivée **/
 System::Collections::ArrayList^ ProblemVLS::getTrajetsTo(Station^ s) {
 
 	System::Collections::ArrayList^ a = gcnew System::Collections::ArrayList();
@@ -288,6 +301,6 @@ System::Collections::ArrayList^ ProblemVLS::getTrajetsTo(Station^ s) {
 
 void Project2::ProblemVLS::setTrajets(System::Collections::Generic::Dictionary<int, System::Collections::ArrayList^>^ newTrajets)
 {
-	if(listeTrajet != nullptr)
+	if (listeTrajet != nullptr)
 		listeTrajet = newTrajets;
 }

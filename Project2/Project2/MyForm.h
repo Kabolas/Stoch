@@ -613,7 +613,9 @@ namespace Project2 {
 		}
 		System::Void ButtonClick(System::Object^ sender, System::EventArgs^ e)
 		{
-			RecuitVLS^ recuit = gcnew RecuitVLS(TEMPERATURE_INITIALE, int::Parse(this->textBox1->Text), 12, problem);
+			int num = 0;
+			int::TryParse(textBox7->Text, num);
+			RecuitVLS^ recuit = gcnew RecuitVLS(TEMPERATURE_INITIALE, int::Parse(this->textBox1->Text), 12, problem,num);
 			recuit->algo();
 			this->richTextBox1->Text += recuit->afficher();
 		}
@@ -807,6 +809,8 @@ namespace Project2 {
 					//System::IO::File::WriteAllText(System::IO::Directory::GetCurrentDirectory() + "/Test2.html", this->loadingHtml);
 					this->webBrowser1->WebView->LoadHtml(this->loadingHtml);
 				}
+				else
+					this->textBox7->Text = "100";
 			}
 			else{
 				this->loadingHtml = System::IO::File::ReadAllText(System::IO::Directory::GetCurrentDirectory() + "/Test.html");

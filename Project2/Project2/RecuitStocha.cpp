@@ -3,12 +3,12 @@
 
 
 
-Project2::RecuitStocha::RecuitStocha(double tInitiale, int nIter, int pallier, ProblemVLS^ prob, System::Collections::ArrayList ^ scenars, int pena)
+Project2::RecuitStocha::RecuitStocha(double tInitiale, int nIter, int pallier, ProblemVLS^ prob, System::Collections::ArrayList ^ scenars, int pena, int nbStations)
 {
 	penalite = pena;
 	scenarios = scenars;
-	for each(Scenario scenar in scenars) {
-		scenarios->Add(gcnew RecuitVLS(tInitiale, nIter, pallier, prob, scenar));
+	for each(ScenarioVLS^ scenar in scenarios) {
+		scenarios->Add(gcnew RecuitVLS(tInitiale, nIter, pallier, prob, scenar->getListeTrajetsSce(), nbStations));
 	}
 }
 
@@ -28,7 +28,7 @@ void Project2::RecuitStocha::algo()
 	bool goOn = false;
 	for each(RecuitVLS^ scenar in scenarios) {
 		scenar->algo();
-		if (!solutionsAreEquals(lastSolution, scenar->getBestSolution))
+		if (!solutionsAreEquals(lastSolution, scenar->getBestSolution()))
 			goOn = true;
 		lastSolution = scenar->getBestSolution();
 		lastValue = scenar->getMinValue();

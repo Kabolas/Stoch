@@ -1,14 +1,14 @@
 #pragma once
 
 #include "RecuitVLS.h"
-#include "Scenario.h"
+#include "ScenarioVLS.h"
 
 #define PENALITE 400
 namespace Project2 {
 	public ref class RecuitStocha
 	{
 	public:
-		RecuitStocha(double tInitiale, int nIter, int pallier, ProblemVLS^ prob, System::Collections::ArrayList^ scenar, int pena);
+		RecuitStocha(double tInitiale, int nIter, int pallier, ProblemVLS^ prob, System::Collections::ArrayList^ scenar, int pena, int nbStations);
 		~RecuitStocha();
 		void algo();
 		double getFinalValue();

@@ -3,17 +3,15 @@
 #include "math.h"
 
 using namespace Project2;
-RecuitVLS::RecuitVLS(double tInitiale, int nIter, int pallier, ProblemVLS^ prob)
+RecuitVLS::RecuitVLS(double tInitiale, int nIter, int pallier, ProblemVLS^ prob, int nb_station) : Recuit(tInitiale,nIter,pallier)
 {
-	tempInitiale = tInitiale;
 	problem = prob;
 	temp = tempInitiale;
-	nIteration = nIter;
-	nPallier = pallier;
 	coefDiminutionTemp = DIMINUTION_TEMPERATURE;
+	nStations = nb_station ? nb_station : prob->getStations()->Count;
 }
 
-Project2::RecuitVLS::RecuitVLS(double tInitiale, int nIter, int pallier, ProblemVLS ^ prob, System::Collections::Generic::Dictionary<int, System::Collections::ArrayList^>^ listTrajets)
+Project2::RecuitVLS::RecuitVLS(double tInitiale, int nIter, int pallier, ProblemVLS ^ prob, System::Collections::Generic::Dictionary<int, System::Collections::ArrayList^ > ^ listTrajets, int nb_station)
 {
 	tempInitiale = tInitiale;
 	problem = prob;
@@ -22,6 +20,7 @@ Project2::RecuitVLS::RecuitVLS(double tInitiale, int nIter, int pallier, Problem
 	nPallier = pallier;
 	coefDiminutionTemp = DIMINUTION_TEMPERATURE;
 	problem->setTrajets(listTrajets);
+	nStations = nb_station ? nb_station : prob->getStations()->Count;
 }
 
 
@@ -32,7 +31,7 @@ RecuitVLS::~RecuitVLS()
 
 System::Collections::ArrayList^ RecuitVLS::getVicinity(System::Collections::ArrayList^ solution) {
 
-	System::Collections::ArrayList^ stations = problem->getStations();
+	//System::Collections::ArrayList^ stations = problem->getStations();
 	System::Collections::ArrayList^ newSolution = gcnew System::Collections::ArrayList();
 	for (int i = 0; i < solution->Count; i++) {
 		newSolution->Add(solution[i]);
@@ -55,7 +54,10 @@ System::Collections::ArrayList^ RecuitVLS::getVicinity(System::Collections::Arra
 
 System::Collections::ArrayList^ RecuitVLS::generateFirstSolution() {
 
-	System::Collections::ArrayList^ stations = problem->getStations();
+	System::Collections::ArrayList^ stations = gcnew System::Collections::ArrayList();
+	System::Collections::ArrayList^ tmp = problem->getStations();
+	for (int i = 0;i < nStations;++i)
+		stations->Add(tmp[i]);
 	System::Collections::ArrayList^ firstSolution = gcnew System::Collections::ArrayList();
 	for each(Station s in stations) {
 		firstSolution->Add((int)getRandProba(0, s.getBikeStands()));
@@ -69,15 +71,14 @@ double RecuitVLS::getValueWithMalus(System::Collections::ArrayList^ solution, Sy
 	double value = problem->getValue(solution);
 	if (kMalus > 0 && solToCompare != nullptr) {
 		for (int i = 0; i < solution->Count; i++) {
-			if ((double)solution[i] > (double)solToCompare[i])
+			if ((double)solution[i] >(double)solToCompare[i])
 				value = value + kMalus * ((double)solution[i] - (double)solToCompare[i]);
 			else
 				value = value + kMalus * ((double)solToCompare[i] - (double)solution[i]);
 		}
 	}
+	return value;
 }
-
-double RecuitVLS::changeTemp() { return temp * coefDiminutionTemp; }
 
 void Project2::RecuitVLS::algoWithMalus(System::Collections::ArrayList^ solToCompare, int kMalus)
 {
@@ -110,6 +111,9 @@ void Project2::RecuitVLS::algoWithMalus(System::Collections::ArrayList^ solToCom
 		temp = changeTemp();
 	}
 }
+
+double RecuitVLS::changeTemp() { return temp * coefDiminutionTemp; }
+
 
 ProblemVLS ^ RecuitVLS::getProb() { return problem; }
 
